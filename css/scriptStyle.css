@@ -1,0 +1,107 @@
+:root {
+    --paperWidth: 8.5in;
+    --paperMarginLeft: 1.5in;
+    --paperMarginRight: 1in;
+    --paperMarginTop: 1in;
+
+    --characterToMarginLeft: 2.2in;
+    --parentheticalToMarginLeft: 1.6in;
+    --dialogToMarginLeft: 1in;
+
+    --font: "Courier Prime Sans";
+}
+
+[fntype="SCENE_HEADING"] {
+    font-weight: bold;
+    background-color: var(--backgroundColor);
+    margin: -6px -10px -6px -10px;
+    padding: 6px 10px 6px 10px;
+}
+
+[fntype="ACTION"] {
+    margin-left: 0;
+}
+
+[fntype="CHARACTER"] {
+    font-weight: bold;
+    margin-left: var(--characterToMarginLeft);
+}
+
+[fntype="PARENTHETICAL"] {
+    margin-left: var(--parentheticalToMarginLeft);
+}
+
+[fntype="DIALOG"] {
+    margin-left: var(--dialogToMarginLeft);
+    margin-right: var(--dialogToMarginLeft);
+}
+
+[fntype="TRANSITION"] {
+    font-weight: bold;
+    text-align: right;
+}
+
+[fntype="CENTERED"] {
+    text-align: center;
+}
+
+[fntype="PAGEBREAK"] {
+    width: calc(100% + var(--paperMarginLeft) + var(--paperMarginRight));
+    height: 24pt;
+
+    margin: 24pt;
+    margin-left: calc(var(--paperMarginLeft) * -1);
+    padding: 10px;
+
+    text-align: center;
+    background-color: var(--backgroundColor);
+    color: var(--pagebreak-text-color);
+
+    font-weight: bold;
+}
+
+[fntype="SYNOPSE"] {
+    margin-left: 0;
+    color: var(--synopse-color);
+}
+
+[fntype="BONEYARD"] {
+    margin-left: 0;
+    color: var(--boneyard-color);
+}
+
+[fntype="SECTION 1"] {
+    width: calc(100% + var(--paperMarginLeft) + var(--paperMarginRight));
+    margin-left: calc(var(--paperMarginLeft) * -1);
+    padding: 10px;
+    padding-left: var(--paperMarginLeft);
+
+    background-color: var(--section1-color);
+    color: var(--light);
+
+    font-weight: bold;
+}
+
+[fntype="SECTION 2"] {
+    width: calc(100% + var(--paperMarginLeft) + var(--paperMarginRight));
+    margin-left: calc(var(--paperMarginLeft) * -1);
+    padding: 10px;
+    padding-left: var(--paperMarginLeft);
+
+    background-color: var(--section2-color);
+    color: var(--backgroundColor);
+
+    font-weight: bold;
+}
+
+[fntype="SECTION 3"] {
+    width: calc(100% + var(--paperMarginLeft) + var(--paperMarginRight));
+    margin-left: calc(var(--paperMarginLeft) * -1);
+    padding: 10px;
+    padding-left: var(--paperMarginLeft);
+
+    background-color: var(--section3-color);
+    color: var(--section2-color);
+
+    font-weight: bold;
+}

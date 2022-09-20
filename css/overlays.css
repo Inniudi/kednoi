@@ -1,0 +1,30 @@
+#paperTex {
+    user-select: none;
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    background-image: url("../src/paperTex.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    mix-blend-mode: overlay;
+    opacity: 0.4;
+    z-index: 1000;
+}
+
+#paperTex[mode="index"] {
+    position: absolute;
+    opacity: 0.6;
+}
+
+#grungeTex {
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background-image: url("../src/grungeTex.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    mix-blend-mode: screen;
+    opacity: 0.8;
+    z-index: 1000;
+}

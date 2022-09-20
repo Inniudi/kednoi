@@ -1,0 +1,198 @@
+:root {
+    --background-color: #eddab7;
+    --primary: #f06262;
+    --light: #f9efdf;
+    --dark: #272932;
+    --pattern-color: #272932;
+    --paperColor: var(--light);
+
+    --x: 6vh;
+    --mask-size: 26vh;
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: "Lexend";
+    margin: 0;
+}
+
+#content {
+    flex-direction: column;
+    width: 100vw;
+    height: calc(100vh - var(--x) / 2);
+    margin-top: calc(var(--x) / 2);
+
+    overflow: hidden;
+}
+
+#decorations {
+    margin-top: calc(var(--x) / 2);
+    margin-left: calc(var(--x) / 2);
+    position: relative;
+    height: calc((100vw - var(--x)) / 4 * 5);
+    max-height: 60vh;
+    min-width: calc(100vw - var(--x));
+}
+
+#decor {
+    position: absolute;
+    height: 20%;
+
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+}
+
+#decorStaticPrimary {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+
+    background-color: var(--primary);
+    mask-image: url("../src/Decorations/decorationStaticPrimary.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url("../src/Decorations/decorationStaticPrimary.svg");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+}
+
+#decorStaticSecondary {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+
+    background-color: var(--dark);
+    mask-image: url("../src/Decorations/decorationStaticSecondary.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url("../src/Decorations/decorationStaticSecondary.svg");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+}
+
+#colorDecor {
+    position: absolute;
+    left: 0;
+    top: calc(var(--x) / 2);
+    width: 70%;
+    height: calc((50vw - var(--x)) * 0.5 / 4.6);
+    /*Calcula la altura de la decoración: (anchuraDelPanel * 0.6)/relaciónDeAspectoDeLaImagen*/
+
+
+    background-image: url("../src/Decorations/decorColors.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+#rightPanel {
+    margin-left: calc(var(--x) / 2);
+    position: relative;
+    height: calc(100vh - ((100vw - var(--x)) / 4 * 5) - var(--x));
+    width: calc(100vw - var(--x));
+}
+
+#indexUI {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: fit-content;
+}
+
+#logo {
+    display: block;
+    width: 100%;
+    height: calc((100vw - var(--x)) / 4.5);
+    /*Calcula la altura del logo: (anchuraDelPanel * 0.8)/relaciónDeAspectoDelLogo*/
+
+    margin-bottom: calc(var(--x) * 0.8);
+
+    background-color: var(--primary);
+    mask-image: url("../src/logo.svg");
+    mask-size: 100%;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url("../src/logo.svg");
+    -webkit-mask-size: 100%;
+    -webkit-mask-repeat: no-repeat;
+}
+
+#goDashboardBttn,
+#goCreditsBttn {
+    display: block;
+    width: calc(var(--x) * 4);
+
+    margin-right: 0;
+    margin-left: auto;
+
+    padding: 1.2vh;
+    padding-right: calc(var(--x) / 2);
+
+    border: 3px solid var(--primary);
+    border-top-left-radius: var(--x);
+    border-bottom-left-radius: var(--x);
+
+    text-align: right;
+    font-size: 2.5vh;
+
+    transition: 0.2s;
+}
+
+#goDashboardBttn {
+    margin-bottom: 1.2vh;
+
+    color: var(--light);
+    background-color: var(--primary);
+}
+
+#goCreditsBttn {
+    color: var(--primary);
+    background-color: #0000;
+}
+
+#goDashboardBttn:hover,
+#goCreditsBttn:hover {
+    width: calc(var(--x) * 4.5);
+    padding-right: calc(var(--x) * 0.8);
+}
+
+#versionIdText {
+    display: block;
+    width: fit-content;
+
+    margin-right: 0;
+    margin-left: auto;
+    margin-top: calc(var(--x) * 0.6);
+
+    color: var(--primary);
+    font-variation-settings: "wght" 300;
+    font-size: 1.8vh;
+}
+
+#dashboard[open="true"] {
+    margin-top: 0;
+}
+
+#dashboard {
+    position: relative;
+    height: calc(100vh - var(--x));
+
+    margin-top: calc((calc(100vh - var(--x)) + (var(--x) / 2)) * -1);
+    margin-bottom: calc(var(--x) / 2);
+
+    transition: 1s;
+    transition-timing-function: ease-in-out;
+
+    will-change: auto;
+}
+
+#homeBttn {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: calc(var(--x) * 3);
+}

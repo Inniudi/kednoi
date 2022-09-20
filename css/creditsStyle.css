@@ -1,0 +1,25 @@
+body {
+    background-color: #eddab7;
+    font-family: "Lexend";
+}
+
+p {
+    font-variation-settings: "wght" 300;
+    text-align: justify;
+}
+
+#accordion>* {
+    background-color: #ddc08918;
+    color: #272932;
+}
+
+a,
+a:visited {
+    color: #f06262;
+}
+
+.accordion-button {
+    background-color: #ddc08918;
+    color: #f06262;
+    font-size: large;
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="109.77843mm"
+   height="83.560066mm"
+   viewBox="0 0 109.77843 83.560066"
+   version="1.1"
+   id="svg5"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2">
+    <pattern
+       xlink:href="#Wavy"
+       id="pattern2909"
+       patternTransform="matrix(1.816085,0,0,2.0185452,46.579445,106.27142)" />
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="30.066020"
+       height="5.1805778"
+       id="Wavy">
+      <path
+         style="fill:black;stroke:none;"
+         d="M 7.597,0.061 C 5.079,-0.187 2.656,0.302 -0.01,1.788 L -0.01,3.061 C 2.773,1.431 5.173,1.052 7.472,1.280 C 9.770,1.508 11.969,2.361 14.253,3.218 C 18.820,4.931 23.804,6.676 30.066,3.061 L 30.062,1.788 C 23.622,5.497 19.246,3.770 14.691,2.061 C 12.413,1.207 10.115,0.311 7.597,0.061 z "
+         id="path2532" />
+    </pattern>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-59.542791,-106.27472)">
+    <rect
+       style="font-variation-settings:'wght' 600;fill:url(#pattern2909);fill-opacity:1;stroke-width:0.857999;stroke-linecap:round;stroke-miterlimit:2.4"
+       id="rect234"
+       width="109.77843"
+       height="83.560074"
+       x="59.542793"
+       y="106.27473"
+       ry="0" />
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+:root {
+    --blockDefaultBorderColor: #272932ff;
+    --paperColor: #424c55ff;
+    --backgroundColor: #272932ff;
+    --selectedTextBg: #fbc19a;
+    --primary: #f06262ff;
+    --light: #272932ff;
+    --dark: #f9efdfff;
+    --toolbar-bg: #b2b7be80;
+
+    --synopse-color: rgb(75, 166, 105);
+    --boneyard-color: #f0b762ff;
+    --section1-color: #424c55ff;
+    --section2-color: #59656fff;
+    --section3-color: #b2b7beff;
+}
