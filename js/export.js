@@ -77,15 +77,18 @@ function exportPDF()
     {
         let height = 3;
         doc.setFont("Courier Prime", "normal", "bold");
+        doc.setFontSize(36);
         doc.text(loadedScriptData.title.toUpperCase(), 4.25, height, { align: "center" });
         height += 1 / 72 * 24;
         if (episodeCheck.checked)
         {
+            doc.setFontSize(24);
             doc.text(loadedScriptData.episode, 4.25, height, { align: "center" });
             height += 1 / 72 * 24;
         }
         height += 1 / 72 * 24;
         doc.setFont("Courier Prime", "normal", "normal");
+        doc.setFontSize(12);
         if (creditCheck.checked)
         {
             doc.text(loadedScriptData.credit, 4.25, height, { align: "center" });
