@@ -171,8 +171,7 @@ function exportPDF()
             }
 
             let splitText = doc.splitTextToSize(block.textContent, maxWidth);
-            doc.text(splitText, margin, currentHeight, { align: align });
-
+            
             currentHeight += splitText.length * (1 / 72 * 12);
             if (currentHeight >= 9)
             {
@@ -181,6 +180,8 @@ function exportPDF()
                 doc.text(`${++currentPage}.`, 7.5, 0.5, { align: "right" });
                 currentHeight = 1;
             }
+
+            doc.text(splitText, margin, currentHeight, { align: align });
         }
         else
         {
