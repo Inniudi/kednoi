@@ -17,10 +17,10 @@ function GoToDashboard()
     {
         if (confirm("¡Hey, que no has guardado! ¿Quieres salir de todos modos?"))
         {
-            window.location.href = './index.html';
+            window.location.href = '../index.html';
         }
     }
-    else window.location.href = './index.html';
+    else window.location.href = '../index.html';
 }
 
 const ProjectStatus = {
