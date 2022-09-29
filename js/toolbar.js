@@ -132,12 +132,12 @@ function SelectAdd(tool)
 
 inputElement.addEventListener('keyup', UpdateToolbar);
 
-addIcon.addEventListener('mousedown', e =>
+toolbar.addEventListener('mousedown', e =>
 {
     e.preventDefault();
 }
 );
-fontIcon.addEventListener('mousedown', e =>
+nonPrintToolbar.addEventListener('mousedown', e =>
 {
     e.preventDefault();
 }

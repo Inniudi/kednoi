@@ -77,14 +77,14 @@ function exportPDF()
     {
         let height = 3;
         doc.setFont("Courier Prime", "normal", "bold");
-        doc.setFontSize(36);
+        doc.setFontSize(18);
         doc.text(loadedScriptData.title.toUpperCase(), 4.25, height, { align: "center" });
-        height += 1 / 72 * 24;
+        height += 1 / 72 * 36;
         if (episodeCheck.checked)
         {
-            doc.setFontSize(24);
+            doc.setFontSize(14);
             doc.text(loadedScriptData.episode, 4.25, height, { align: "center" });
-            height += 1 / 72 * 24;
+            height += 1 / 72 * 28;
         }
         height += 1 / 72 * 24;
         doc.setFont("Courier Prime", "normal", "normal");
@@ -123,65 +123,134 @@ function exportPDF()
     let currentPage = 1;
     let currentSecOne;
     let currentSecTwo;
+    doc.setFontSize(12);
 
     for (let block of htmlCopy.children)
     {
         let type = block.getAttribute("fntype");
         if (!nonPrintableTypes.includes(type))
         {
-
             let maxWidth = maxWidths[type];
             let margin = margins[type];
             let align = "left";
 
-            switch (type)
+            if (type === "PAGEBREAK")
             {
-                case "PAGEBREAK":
-                    if (currentHeight > 1)
-                    {
-                        doc.addPage();
-                        doc.setFont("Courier Prime", "normal", "normal");
-                        doc.text(`${++currentPage}.`, 7.5, 0.5, { align: "right" });
-                        currentHeight = 1;
-                    }
-                    continue;
-                    break;
-
-                case "SCENE_HEADING":
-                    currentHeight += 1 / 72 * 12;
-                    doc.setFont("Courier Prime", "normal", "bold");
-                    break;
-
-                case "CHARACTER":
-                    doc.setFont("Courier Prime", "normal", "bold");
-                    break;
-
-                case "TRANSITION":
-                    doc.setFont("Courier Prime", "normal", "bold");
-                    align = "right";
-                    break;
-
-                case "CENTERED":
-                    align = "center";
-                    break;
-
-                default:
+                if (currentHeight > 1)
+                {
+                    doc.addPage();
                     doc.setFont("Courier Prime", "normal", "normal");
-                    break;
+                    doc.text(`${++currentPage}.`, 7.5, 0.5, { align: "right" });
+                    currentHeight = 1;
+                }
+                continue;
             }
 
             let splitText = doc.splitTextToSize(block.textContent, maxWidth);
-            
-            currentHeight += splitText.length * (1 / 72 * 12);
-            if (currentHeight >= 9)
+            let lineCountDifference = Math.round((10.17 - currentHeight) / (1 / 72 * 12));
+            console.log(lineCountDifference);
+            if (lineCountDifference < splitText.length)
             {
+                let firstHalf = splitText.slice(0, lineCountDifference);
+                let secondHalf = splitText.slice(lineCountDifference, splitText.length);
+
+                switch (type)
+                {
+                    case "SCENE_HEADING":
+                        currentHeight += 1 / 72 * 12;
+                        doc.setFont("Courier Prime", "normal", "bold");
+                        break;
+
+                    case "CHARACTER":
+                        doc.setFont("Courier Prime", "normal", "bold");
+                        break;
+
+                    case "TRANSITION":
+                        doc.setFont("Courier Prime", "normal", "bold");
+                        align = "right";
+                        break;
+
+                    case "CENTERED":
+                        align = "center";
+                        break;
+
+                    default:
+                        doc.setFont("Courier Prime", "normal", "normal");
+                        break;
+                }
+
+                doc.text(firstHalf, margin, currentHeight, { align: align });
+                currentHeight += firstHalf.length * (1 / 72 * 12);
+
                 doc.addPage();
                 doc.setFont("Courier Prime", "normal", "normal");
                 doc.text(`${++currentPage}.`, 7.5, 0.5, { align: "right" });
                 currentHeight = 1;
-            }
 
-            doc.text(splitText, margin, currentHeight, { align: align });
+                switch (type)
+                {
+                    case "SCENE_HEADING":
+                        doc.setFont("Courier Prime", "normal", "bold");
+                        break;
+
+                    case "CHARACTER":
+                        doc.setFont("Courier Prime", "normal", "bold");
+                        break;
+
+                    case "TRANSITION":
+                        doc.setFont("Courier Prime", "normal", "bold");
+                        align = "right";
+                        break;
+
+                    case "CENTERED":
+                        align = "center";
+                        break;
+
+                    default:
+                        doc.setFont("Courier Prime", "normal", "normal");
+                        break;
+                }
+
+                doc.text(secondHalf, margin, currentHeight, { align: align });
+                currentHeight += secondHalf.length * (1 / 72 * 12);
+            }
+            else
+            {
+                if ((type === "SCENE_HEADING" && lineCountDifference <= 2) || (type === "CHARACTER" && lineCountDifference <= 2))
+                {
+                    console.log(type);
+                    doc.addPage();
+                    doc.setFont("Courier Prime", "normal", "normal");
+                    doc.text(`${++currentPage}.`, 7.5, 0.5, { align: "right" });
+                    currentHeight = 1;
+                }
+                switch (type)
+                {
+                    case "SCENE_HEADING":
+                        if (currentHeight > 1) currentHeight += 1 / 72 * 12;
+                        doc.setFont("Courier Prime", "normal", "bold");
+                        break;
+
+                    case "CHARACTER":
+                        doc.setFont("Courier Prime", "normal", "bold");
+                        break;
+
+                    case "TRANSITION":
+                        doc.setFont("Courier Prime", "normal", "bold");
+                        align = "right";
+                        break;
+
+                    case "CENTERED":
+                        align = "center";
+                        break;
+
+                    default:
+                        doc.setFont("Courier Prime", "normal", "normal");
+                        break;
+                }
+                doc.text(splitText, margin, currentHeight, { align: align });
+                currentHeight += splitText.length * (1 / 72 * 12);
+            }
         }
         else
         {
