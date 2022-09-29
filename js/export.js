@@ -257,13 +257,13 @@ function exportPDF()
             switch (type)
             {
                 case "SECTION 1":
-                    currentSecOne = doc.outline.add(null, block.textContent.replace('#', ''), { pageNumber: currentPage });
+                    currentSecOne = doc.outline.add(null, block.textContent.replace('#', ''), { pageNumber: currentPage + 1 });
                     break;
                 case "SECTION 2":
-                    currentSecTwo = doc.outline.add(currentSecOne || null, block.textContent.replace('##', ''), { pageNumber: currentPage });
+                    currentSecTwo = doc.outline.add(currentSecOne || null, block.textContent.replace('##', ''), { pageNumber: currentPage + 1 });
                     break;
                 case "SECTION 3":
-                    currentSecTwo = doc.outline.add(currentSecTwo || null, block.textContent.replace('###', ''), { pageNumber: currentPage });
+                    currentSecTwo = doc.outline.add(currentSecTwo || null, block.textContent.replace('###', ''), { pageNumber: currentPage + 1 });
                     break;
             }
         }
