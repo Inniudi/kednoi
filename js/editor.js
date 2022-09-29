@@ -113,6 +113,11 @@ inputElement.addEventListener('keydown', e =>
     {
         e.preventDefault();
     }
+
+    else if (e.code === "Tab")
+    {
+        e.preventDefault();
+    }
 });
 
 inputElement.addEventListener('keyup', e =>
@@ -137,6 +142,22 @@ inputElement.addEventListener('keyup', e =>
         e.preventDefault();
         let containerFontStyle = GetFontStyle(window.getSelection().getRangeAt(0).endContainer.parentElement);
         SelectMarkup(document.querySelector(`#font-toolbar div[tool="UNDERLINE"]`), true, (containerFontStyle[2] === "underline").toString(), true);
+    }
+
+    else if (e.code === "Tab")
+    {
+        e.preventDefault();
+        let node = window.getSelection().anchorNode;
+        while (node.parentElement !== inputElement) node = node.parentElement;
+        let type = (node.getAttribute("fntype") === "EMPTY" || node.getAttribute("fntype") === "CENTERED") ? "ACTION" : node.getAttribute("fntype");
+        let prevType = (node.previousSibling.getAttribute("fntype") === "EMPTY" || node.previousSibling.getAttribute("fntype") === "CENTERED") ? "ACTION" : node.previousSibling.getAttribute("fntype");
+
+        if (prevType !== "CHARACTER" && prevType !== "PARENTHETICAL")
+        {
+            node.setAttribute("autoformat", "false");
+            node.setAttribute("fntype", type === "ACTION" ? "CHARACTER" : "ACTION");
+        }
+
     }
 });
 
@@ -169,18 +190,28 @@ function CheckNode(n)
 {
     let node = n;
     while (node.parentElement !== inputElement) node = node.parentElement;
-    let contentToCheck = node.innerText.replaceAll(`<br>`, `\n`);
 
     if (node.getAttribute("autoformat") === "false") return;
 
-    for (var i = 0; i < editorPatterns.length; i++)
+    let contentToCheck = node.innerText.replaceAll(`<br>`, `\n`);
+
+    let prevType = node.previousSibling.getAttribute("fntype");
+    if (!/^\(.*/m.test(contentToCheck) && (prevType === "CHARACTER" || prevType === "PARENTHETICAL"))
     {
-        if (new RegExp(editorPatterns[i][1], editorPatterns[i][2]).test(contentToCheck))
+        console.log("js");
+        node.setAttribute("fntype", "DIALOG");
+    }
+    else
+    {
+        for (var i = 0; i < editorPatterns.length; i++)
         {
-            node.setAttribute("fntype", editorPatterns[i][0]);
-            return;
+            if (new RegExp(editorPatterns[i][1], editorPatterns[i][2]).test(contentToCheck))
+            {
+                node.setAttribute("fntype", editorPatterns[i][0]);
+                return;
+            }
+            node.setAttribute("fntype", "ACTION");
         }
-        node.setAttribute("fntype", "ACTION");
     }
 }
 
@@ -228,6 +259,7 @@ function FormatCurrentAs(type)
     while (node.parentElement !== inputElement) node = node.parentElement;
     node.setAttribute("fntype", type);
     node.setAttribute("autoformat", "false");
+    Unsave();
 }
 
 function Observe()
