@@ -10,9 +10,9 @@
     --one-tool-space: calc(var(--toolBarWidth) / 6);
     --per-tool-margin: calc((var(--one-tool-space) - 60px) / 6);
 
-    --characterToMarginLeft: 18vh;
-    --parentheticalToMarginLeft: 12vh;
-    --dialogToMarginLeft: 06vh;
+    --characterToMarginLeft: 38vw;
+    --parentheticalToMarginLeft: 20vw;
+    --dialogToMarginLeft: 10vw;
 
     --paperMarginLeft: 10px;
     --paperMarginRight: 10px;
@@ -315,10 +315,12 @@ body {
     opacity: 0;
 
     transition: 0.2s, transform 0.1s;
+    will-change: right;
 }
 
 #toolFontIcon,
 #toolAddIcon {
+    pointer-events: none;
     z-index: 2;
     position: absolute;
     width: 30px;
@@ -354,6 +356,10 @@ body {
 
 .tool:hover {
     transform: scale(1.1);
+}
+
+.toolbar {
+    will-change: width;
 }
 
 .toolbar:hover>.tool[tool="SCENE_HEADING"] {

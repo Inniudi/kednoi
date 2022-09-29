@@ -14,7 +14,7 @@
 [fntype="SCENE_HEADING"] {
     font-weight: bold;
     background-color: var(--backgroundColor);
-    margin: -6px -10px -6px -10px;
+    margin: 6px -10px -6px -10px;
     padding: 6px 10px 6px 10px;
 }
 
@@ -73,6 +73,7 @@
 [fntype="SECTION 1"] {
     width: calc(100% + var(--paperMarginLeft) + var(--paperMarginRight));
     margin-left: calc(var(--paperMarginLeft) * -1);
+    margin-bottom: 6px;
     padding: 10px;
     padding-left: var(--paperMarginLeft);
 
@@ -85,6 +86,7 @@
 [fntype="SECTION 2"] {
     width: calc(100% + var(--paperMarginLeft) + var(--paperMarginRight));
     margin-left: calc(var(--paperMarginLeft) * -1);
+    margin-bottom: 6px;
     padding: 10px;
     padding-left: var(--paperMarginLeft);
 
@@ -97,6 +99,7 @@
 [fntype="SECTION 3"] {
     width: calc(100% + var(--paperMarginLeft) + var(--paperMarginRight));
     margin-left: calc(var(--paperMarginLeft) * -1);
+    margin-bottom: 6px;
     padding: 10px;
     padding-left: var(--paperMarginLeft);
 
