@@ -11,6 +11,9 @@ let boldCharacters = document.getElementById("boldCharacters");
 let boldTransitions = document.getElementById("boldTransitions");
 let headingHightlight = document.getElementById("headingHighlight");
 let sceneNumbers = document.getElementById("sceneNumbers");
+let sceneNsLeft = document.getElementById("sceneNumbersLeft");
+let sceneNsRight = document.getElementById("sceneNumbersRight");
+let exportBoneyards = document.getElementById("exportBoneyards");
 
 let fontsLink = document.getElementById("fontsLink");
 let themeLink = document.getElementById("themeLink");
@@ -28,7 +31,11 @@ function SavePreferences()
         boldCharacters.checked,
         boldTransitions.checked,
         headingHightlight.checked,
-        sceneNumbers.checked);
+        sceneNumbers.checked,
+        sceneNsLeft.checked,
+        sceneNsRight.checked,
+        exportBoneyards.checked
+    );
     localStorage.setItem("UserPrefs", JSON.stringify(newPrefs));
 }
 
@@ -49,6 +56,9 @@ function LoadPreferences()
     boldTransitions.checked = loadedPrefs.boldTransitions;
     headingHightlight.checked = loadedPrefs.headingHightlight;
     sceneNumbers.checked = loadedPrefs.sceneNumbers;
+    sceneNsLeft.checked = loadedPrefs.sceneNsLeft;
+    sceneNsRight.checked = loadedPrefs.sceneNsRight;
+    exportBoneyards.checked = loadedPrefs.exportBoneyards;
     ToggleAutoSave();
 }
 
@@ -92,6 +102,9 @@ function SetTheme()
             break;
         case "4":
             themeLink.setAttribute("href", "../css/themes/achromaticTheme.css");
+            break;
+        default:
+            themeLink.setAttribute("href", "../css/themes/lightTheme.css");
             break;
     }
     SavePreferences();

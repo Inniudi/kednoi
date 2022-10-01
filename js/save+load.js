@@ -86,6 +86,49 @@ function SaveFileToLocal(importSaveDate)
     SetVersionsList();
 }
 
+function ShareFile()
+{
+    importSaveDate = false;
+
+    //Project data
+    if (fileNameInput.value.trim() != fileName)
+    {
+        if (!localStorage.getItem("SaveF" + fileNameInput.value.trim()))
+        {
+            localStorage.removeItem(`SaveF${fileName}`);
+            fileName = fileNameInput.value.trim();
+            loadedProject.fileSaveName = fileName;
+            fileNameText.textContent = fileName;
+            fileNameInput.value = fileName;
+        }
+        else alert("Ya existe un proyecto con este nombre, elige uno diferente.");
+    }
+    if (loadedProject.thumbnail != thumbnailFile) loadedProject.thumbnail = thumbnailFile;
+    if (loadedProject.color != colorPicker.value) loadedProject.color = colorPicker.value;
+
+    //Version data
+    var index = 0;
+    if (loadedProject.versions.length <= 0) { loadedProject.versions.push(new Version()); }
+    else index = loadedProject.versions.indexOf(loadedProject.versions.find(x => x.versionId === loadedVersion.versionId));
+    loadedProject.versions[index].versionLastMod = importSaveDate || Date.now().toString();
+    loadedProject.versions[index].htmlSave = htmlOutput.innerHTML;
+    if (loadedProject.versions[index].versionId != versionInput.value.trim())
+    {
+        if (loadedProject.versions.find(x => x.versionId === versionInput.value.trim())) { alert(`¡Ya existe una versión identifacada como \"${versionInput.value.trim()}\"! Elige otro identificador distinto.`); return; }
+        loadedProject.versions[index].versionId = versionInput.value.trim();
+    }
+    if (loadedProject.versions[index].versionStatus != statusSelect.value) loadedProject.versions[index].versionStatus = statusSelect.value;
+
+    loadedVersion.versionId = loadedProject.versions[index].versionId;
+    loadedProject.lastVersionId = loadedProject.versions[loadedProject.versions.length - 1].versionId;
+
+    //Script Data
+    newScriptData = new ScriptData(titleInput.value, episodeInput.value, creditInput.value, authorInput.value, sourceInput.value, contactInput.value, episodeCheck.checked, creditCheck.checked, sourceCheck.checked, contactCheck.checked);
+    Object.assign(loadedProject.scriptData, newScriptData);
+
+    exportKedFile(JSON.stringify(loadedProject));
+}
+
 function Load()
 {
     Object.assign(loadedProject, JSON.parse(localStorage.getItem("SaveF" + fileName)));
@@ -130,4 +173,49 @@ function Unsave()
     {
         savedIcon.classList.add("not-saved"); saved = false;
     }
+}
+
+if ("launchQueue" in window)
+{
+    launchQueue.setConsumer(async launchParams =>
+    {
+        if (launchParams.files.length)
+        {
+            if (/.*\.ked$/i.test(launchParams.files[0].name))
+            {
+                let loadedFileName = launchParams.files[0].name.replace(/(.*)\.ked$/i, `$1`);
+                if (localStorage.getItem(`SaveF${loadedFileName}`))
+                {
+                    let newName = prompt(`¡Ojo! Ya tienes un proyecto con el nombre de archivo "${loadedFileName}". Escribe algo diferente abajo para abrir este archivo con otro nombre o déjalo como está si prefieres sobreescribirlo.`, loadedFileName);
+                    let reader = new FileReader();
+                    reader.addEventListener('load', function (e)
+                    {
+                        Object.assign(loadedProject, JSON.parse(e.target.result));
+                        Object.assign(loadedVersion, loadedProject.GetVersionByID(sessionStorage.getItem("currentSelectedVersion")));
+                        Object.assign(loadedScriptData, loadedProject.scriptData);
+
+                        fileName = newName;
+                        loadedProject.fileSaveName = fileName;
+                        fileNameText.textContent = fileName;
+                        fileNameInput.value = fileName;
+                        colorPicker.value = loadedProject.color;
+                        thumbnailFile = loadedProject.thumbnail;
+
+                        versionInput.value = loadedVersion.versionId;
+                        htmlOutput.innerHTML = loadedVersion.htmlSave;
+                        statusSelect.value = loadedVersion.versionStatus;
+
+                        LoadScriptData();
+
+                        SetVersionsList();
+                    });
+                    reader.readAsText(launchParams.files[0]);
+                }
+            }
+            else if (/.*\.fountain$/i.test(launchParams.files[0].name))
+            {
+                OpenFile(launchParams);
+            }
+        }
+    });
 }

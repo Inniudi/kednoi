@@ -25,7 +25,17 @@ async function exportFountainTxt()
 
     element.click();
     element.remove();
+}
 
+function exportKedFile(text)
+{
+    let element = document.createElement('a');
+
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', `${fileName}.ked`);
+
+    element.click();
+    element.remove();
 }
 
 let maxWidths = {
@@ -123,6 +133,7 @@ function exportPDF()
     let currentPage = 1;
     let currentSecOne;
     let currentSecTwo;
+    let currentScene = 0;
     doc.setFontSize(12);
 
     for (let block of htmlCopy.children)
@@ -159,6 +170,9 @@ function exportPDF()
                     case "SCENE_HEADING":
                         currentHeight += 1 / 72 * 12;
                         doc.setFont("Courier Prime", "normal", "bold");
+                        currentScene++;
+                        if (sceneNsLeft.checked) doc.text(`${currentScene}`, margin - 0.3, currentHeight, { align: "right" });
+                        if (sceneNsRight.checked) doc.text(`${currentScene}`, margin + maxWidth + 0.2, currentHeight, { align: "left" });
                         break;
 
                     case "CHARACTER":
@@ -229,6 +243,9 @@ function exportPDF()
                     case "SCENE_HEADING":
                         if (currentHeight > 1) currentHeight += 1 / 72 * 12;
                         doc.setFont("Courier Prime", "normal", "bold");
+                        currentScene++;
+                        if (sceneNsLeft.checked) doc.text(`${currentScene}`, margin - 0.3, currentHeight, { align: "right" });
+                        if (sceneNsRight.checked) doc.text(`${currentScene}`, margin + maxWidth + 0.2, currentHeight, { align: "left" });
                         break;
 
                     case "CHARACTER":
@@ -264,6 +281,9 @@ function exportPDF()
                     break;
                 case "SECTION 3":
                     currentSecTwo = doc.outline.add(currentSecTwo || null, block.textContent.replace('###', ''), { pageNumber: currentPage + 1 });
+                    break;
+                case "BONEYARD":
+                    if (exportBoneyards.checked) doc.createAnnotation({ type: "text", title: "/*", bounds: { x: 0.5, y: currentHeight - (1 / 72 * 18), w: 0.2, h: 0.2 }, contents: `${block.textContent.replace(/\/\*(.*)(?:\*\/)?/, `$1`)}`, open: false });
                     break;
             }
         }
