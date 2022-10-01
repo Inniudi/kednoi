@@ -187,6 +187,7 @@ if ("launchQueue" in window)
                 let loadedFileName = launchParams.files[0].name.replace(/(.*)\.ked$/i, `$1`);
                 if (localStorage.getItem(`SaveF${loadedFileName}`))
                 {
+            console.log("it's a ked!");
                     let newName = prompt(`¡Ojo! Ya tienes un proyecto con el nombre de archivo "${loadedFileName}". Escribe algo diferente abajo para abrir este archivo con otro nombre o déjalo como está si prefieres sobreescribirlo.`, loadedFileName);
                     let reader = new FileReader();
                     reader.addEventListener('load', function (e)
@@ -219,4 +220,4 @@ if ("launchQueue" in window)
             }
         }
     });
-}else console.log("not compatible");
+}
