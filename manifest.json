@@ -1,8 +1,7 @@
 {
     "name": "Kednoi",
     "short_name": "Kednoi",
-    "start_url": "./index.html",
-    "scope": "/kednoi/",
+    "start_url": "/index.html",
     "background_color": "#f06262",
     "theme_color": "#f06262",
     "display": "standalone",
@@ -19,6 +18,38 @@
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "monochrome"
+        }
+    ],
+    "file_handlers": [
+        {
+            "action": "pages/editor-SW.html",
+            "accept": {
+                "text/plain": [
+                    ".fountain"
+                ]
+            },
+            "icons": [
+                {
+                    "src": "src/fountain_icon512.png",
+                    "sizes": "512x512",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "action": "pages/editor-SW.html",
+            "accept": {
+                "text/plain": [
+                    ".ked"
+                ]
+            },
+            "icons": [
+                {
+                    "src": "src/ked_icon512.svg",
+                    "sizes": "512x512",
+                    "type": "image/svg"
+                }
+            ]
         }
     ]
 }
