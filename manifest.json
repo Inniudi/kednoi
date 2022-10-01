@@ -15,7 +15,7 @@
             "purpose": "any"
         },
         {
-            "src": "src/icon512mono.png",
+            "src": "src/icon512mno.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "monochrome"
