@@ -2,13 +2,13 @@ function GoToFileEditor(project, version)
 {
     sessionStorage.setItem("currentSelectedFile", project);
     sessionStorage.setItem("currentSelectedVersion", version);
-    window.location.href = "./pages/editor-SW.html";
+    window.location.href = "../pages/editor-SW.html";
 }
 
 function GoToNewFileEditor()
 {
     sessionStorage.removeItem("currentSelectedFile");
-    window.location.href = "./pages/editor-SW.html";
+    window.location.href = "../pages/editor-SW.html";
 }
 
 function GoToDashboard()

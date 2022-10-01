@@ -181,38 +181,37 @@ if ("launchQueue" in window)
     {
         if (launchParams.files.length)
         {
-            console.log("recognized file");
             if (/.*\.ked$/i.test(launchParams.files[0].name))
             {
                 let loadedFileName = launchParams.files[0].name.replace(/(.*)\.ked$/i, `$1`);
+                let newName = loadedFileName;
                 if (localStorage.getItem(`SaveF${loadedFileName}`))
                 {
-            console.log("it's a ked!");
-                    let newName = prompt(`¡Ojo! Ya tienes un proyecto con el nombre de archivo "${loadedFileName}". Escribe algo diferente abajo para abrir este archivo con otro nombre o déjalo como está si prefieres sobreescribirlo.`, loadedFileName);
-                    let reader = new FileReader();
-                    reader.addEventListener('load', function (e)
-                    {
-                        Object.assign(loadedProject, JSON.parse(e.target.result));
-                        Object.assign(loadedVersion, loadedProject.GetVersionByID(sessionStorage.getItem("currentSelectedVersion")));
-                        Object.assign(loadedScriptData, loadedProject.scriptData);
-
-                        fileName = newName;
-                        loadedProject.fileSaveName = fileName;
-                        fileNameText.textContent = fileName;
-                        fileNameInput.value = fileName;
-                        colorPicker.value = loadedProject.color;
-                        thumbnailFile = loadedProject.thumbnail;
-
-                        versionInput.value = loadedVersion.versionId;
-                        htmlOutput.innerHTML = loadedVersion.htmlSave;
-                        statusSelect.value = loadedVersion.versionStatus;
-
-                        LoadScriptData();
-
-                        SetVersionsList();
-                    });
-                    reader.readAsText(launchParams.files[0]);
+                    newName = prompt(`¡Ojo! Ya tienes un proyecto con el nombre de archivo "${loadedFileName}". Escribe algo diferente abajo para abrir este archivo con otro nombre o déjalo como está si prefieres sobreescribirlo.`, loadedFileName);
                 }
+                let reader = new FileReader();
+                reader.addEventListener('load', function (e)
+                {
+                    Object.assign(loadedProject, JSON.parse(e.target.result));
+                    Object.assign(loadedVersion, loadedProject.GetVersionByID(sessionStorage.getItem("currentSelectedVersion")));
+                    Object.assign(loadedScriptData, loadedProject.scriptData);
+
+                    fileName = newName;
+                    loadedProject.fileSaveName = fileName;
+                    fileNameText.textContent = fileName;
+                    fileNameInput.value = fileName;
+                    colorPicker.value = loadedProject.color;
+                    thumbnailFile = loadedProject.thumbnail;
+
+                    versionInput.value = loadedVersion.versionId;
+                    inputElement.innerHTML = loadedVersion.htmlSave;
+                    statusSelect.value = loadedVersion.versionStatus;
+
+                    LoadScriptData();
+
+                    SetVersionsList();
+                });
+                reader.readAsText(launchParams.files[0]);
             }
             else if (/.*\.fountain$/i.test(launchParams.files[0].name))
             {

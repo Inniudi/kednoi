@@ -170,13 +170,45 @@ function Start()
         LoadPreferences();
     }
     else SavePreferences();
-    if (sessionStorage.getItem("currentSelectedFile") !== null)
+    if (sessionStorage.getItem("currentSelectedFile"))
     {
         fileName = sessionStorage.getItem("currentSelectedFile");
-        if (localStorage.getItem("SaveF" + fileName) !== null)
+        if (localStorage.getItem("SaveF" + fileName))
         {
             LoadFileFromLocal();
         }
+        sessionStorage.removeItem("currentSelectedFile");
+    }
+    else if (sessionStorage.getItem("openedKed"))
+    {
+        let openedKed = JSON.parse(sessionStorage.getItem("openedKed"));
+        let loadedFileName = openedKed.fileSaveName;
+        let newName = loadedFileName;
+
+        if (localStorage.getItem(`SaveF${loadedFileName}`))
+        {
+            let newName = prompt(`¡Ojo! Ya tienes un proyecto con el nombre de archivo "${loadedFileName}". Escribe algo diferente abajo para abrir este archivo con otro nombre o déjalo como está si prefieres sobreescribirlo.`, loadedFileName);
+        }
+
+        Object.assign(loadedProject, openedKed);
+        Object.assign(loadedVersion, loadedProject.GetVersionByID(sessionStorage.getItem("currentSelectedVersion")));
+        Object.assign(loadedScriptData, loadedProject.scriptData);
+
+        fileName = newName;
+        loadedProject.fileSaveName = fileName;
+        fileNameText.textContent = fileName;
+        fileNameInput.value = fileName;
+        colorPicker.value = loadedProject.color;
+        thumbnailFile = loadedProject.thumbnail;
+
+        versionInput.value = loadedVersion.versionId;
+        inputElement.innerHTML = loadedVersion.htmlSave;
+        statusSelect.value = loadedVersion.versionStatus;
+
+        LoadScriptData();
+
+        SetVersionsList();
+        sessionStorage.removeItem("openedKed");
     }
     else
     {

@@ -16,3 +16,14 @@ if ("serviceWorker" in navigator)
         console.log("sw registration failed");
     });
 }
+
+function OpenKedProject(input)
+{
+    let reader = new FileReader();
+    reader.addEventListener('load', function (e)
+    {
+        sessionStorage.setItem("openedKed", e.target.result);
+    });
+    reader.readAsText(input.files[0]);
+    GoToNewFileEditor();
+}
