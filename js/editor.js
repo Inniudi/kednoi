@@ -191,7 +191,7 @@ function Start()
         }
 
         Object.assign(loadedProject, openedKed);
-        Object.assign(loadedVersion, loadedProject.GetVersionByID(sessionStorage.getItem("currentSelectedVersion")));
+        Object.assign(loadedVersion, loadedProject.GetVersionByID(loadedProject.lastVersionId));
         Object.assign(loadedScriptData, loadedProject.scriptData);
 
         fileName = newName;

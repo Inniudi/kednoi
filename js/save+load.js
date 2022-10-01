@@ -193,7 +193,7 @@ if ("launchQueue" in window)
                 reader.addEventListener('load', function (e)
                 {
                     Object.assign(loadedProject, JSON.parse(e.target.result));
-                    Object.assign(loadedVersion, loadedProject.GetVersionByID(sessionStorage.getItem("currentSelectedVersion")));
+                    Object.assign(loadedVersion, loadedProject.GetVersionByID(loadedProject.lastVersionId));
                     Object.assign(loadedScriptData, loadedProject.scriptData);
 
                     fileName = newName;
