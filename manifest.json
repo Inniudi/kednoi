@@ -1,7 +1,8 @@
 {
     "name": "Kednoi",
     "short_name": "Kednoi",
-    "start_url": "/index.html",
+    "start_url": "./index.html",
+    "scope": "/kednoi/",
     "background_color": "#f06262",
     "theme_color": "#f06262",
     "display": "standalone",
