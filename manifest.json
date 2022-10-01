@@ -46,9 +46,9 @@
             },
             "icons": [
                 {
-                    "src": "src/ked_icon512.svg",
+                    "src": "src/ked_icon512.png",
                     "sizes": "512x512",
-                    "type": "image/svg"
+                    "type": "image/png"
                 }
             ]
         }
