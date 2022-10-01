@@ -3,7 +3,7 @@ let j = 0;
 
 function OpenFile(openInput)
 {
-    observer.disconnect();
+    if (observer) observer.disconnect();
     let reader = new FileReader();
     reader.addEventListener('load', function (e)
     {
