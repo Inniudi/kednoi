@@ -181,6 +181,7 @@ if ("launchQueue" in window)
     {
         if (launchParams.files.length)
         {
+            console.log("recognized file");
             if (/.*\.ked$/i.test(launchParams.files[0].name))
             {
                 let loadedFileName = launchParams.files[0].name.replace(/(.*)\.ked$/i, `$1`);
@@ -218,4 +219,4 @@ if ("launchQueue" in window)
             }
         }
     });
-}
+}else console.log("not compatible");
