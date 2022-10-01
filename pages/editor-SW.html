@@ -13,7 +13,7 @@
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <!--Kednoi-->
     <link rel="stylesheet" id="fontsLink" href="../css/fonts.css">
-    <link rel="stylesheet" id="themeLink" href="../css/themes/lightTheme.css">
+    <link rel="stylesheet" id="themeLink" href="../css/lightTheme.css">
     <link rel="stylesheet" href="../css/scrollBar.css">
     <link rel="stylesheet" href="../css/scriptStyle.css">
     <link rel="stylesheet" media="(min-width: 1200px)" href="../css/editorStyle.css">
@@ -89,6 +89,8 @@
                                 <label class="btn btn-outline-primary" type="button" for="openInput">Importar</label>
                                 <input type="file" style="display: none;" id="openInput" accept=".txt, .fountain"
                                     onchange="OpenFile(this)">
+                                <button class="btn btn-outline-primary" type="button" onclick="ShareFile()">Guardar como
+                                    archivo</button>
                                 <button class="btn btn-primary" type="button"
                                     onclick="SaveFileToLocal()">Guardar</button>
                             </div>
@@ -161,20 +163,20 @@
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                         data-bs-parent="#accordion">
                         <div class="accordion-body">
-                            <div class="form-check mb-3">
+                            <div class="form-check mb-2">
                                 <input class="form-check-input" type="checkbox" value="" id="exportTitle" checked
                                     onclick="JustSave()">
                                 <label class="form-check-label" for="exportTitle">Exportar
                                     portada</label>
                             </div>
-                            <div class="form-check mb-3">
+                            <div class="form-check mb-2">
                                 <input class="form-check-input" type="checkbox" value="" id="exportVersion" checked
                                     onclick="JustSave()">
                                 <label class="form-check-label" for="exportVersion">Incluir
                                     ident. de
                                     versión</label>
                             </div>
-                            <div class="form-check mb-3">
+                            <div class="form-check mb-2">
                                 <input class="form-check-input" type="checkbox" value="" id="exportDate" checked
                                     onclick="JustSave()">
                                 <label class="form-check-label" for="exportDate">Incluir
@@ -182,15 +184,33 @@
                                     de
                                     versión</label>
                             </div>
-                            <div class="d-grid gap-2">
-                                <label>Exportar a Fountain</label>
+                            <div class="d-grid">
+                                <label class="mb-2 mt-2"><strong>Exportar a Fountain</strong></label>
                                 <div class="row"><button class="btn btn-primary col-5 m-auto" type="button"
                                         onclick="exportFountain();">.fountain</button>
                                     <button class="btn btn-primary col-5 m-auto" type="button"
                                         onclick="exportFountainTxt();">.txt</button>
                                 </div>
 
-                                <label>Exportar a PDF</label>
+                                <label class="mb-2 mt-2"><strong>Exportar a PDF</strong></label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" value="" id="sceneNumbersLeft"
+                                        checked onclick="JustSave()">
+                                    <label class="form-check-label" for="sceneNumbersLeft">Números de escena a la
+                                        izquierda</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" value="" id="sceneNumbersRight"
+                                        checked onclick="JustSave()">
+                                    <label class="form-check-label" for="sceneNumbersRight">Números de escena a la
+                                        derecha</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" value="" id="exportBoneyards"
+                                        checked onclick="JustSave()">
+                                    <label class="form-check-label" for="exportBoneyards">Exportar anotaciones
+                                        (/*)</label>
+                                </div>
                                 <button class="btn btn-primary" type="button" onclick="exportPDF()">.pdf</button>
                             </div>
                         </div>
@@ -288,11 +308,9 @@
                 </div>
             </div>
         </div>
-        <div class="" id="dashboardButton">
-            <div class="d-grid gap-2">
-                <button class="btn btn-outline-light" type="button" onclick="GoToDashboard()">Volver al
-                    tablero</button>
-            </div>
+        <div class="d-grid gap-2">
+            <button class="btn" type="button" id="dashboardButton" onclick="GoToDashboard()">Volver al
+                tablero</button>
         </div>
     </div>
     <div id="toolbarContainer">
