@@ -1,5 +1,5 @@
 var GHPATH = '/kednoi';
-var VERSION = 'v2.088alpha - 02/10/2022';
+var VERSION = 'v2.0881alpha - 02/10/2022';
 var URLS = [
     `${GHPATH}/`,
     //HTMLS
