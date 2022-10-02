@@ -181,9 +181,10 @@ if ("launchQueue" in window)
     {
         if (launchParams.files.length)
         {
-            if (/.*\.ked$/i.test(launchParams.files[0].name))
+            let file = launchParams.files[0];
+            if (/.*\.ked$/i.test(file.name))
             {
-                let loadedFileName = launchParams.files[0].name.replace(/(.*)\.ked$/i, `$1`);
+                let loadedFileName = file.name.replace(/(.*)\.ked$/i, `$1`);
                 let newName = loadedFileName;
                 if (localStorage.getItem(`SaveF${loadedFileName}`))
                 {
@@ -211,9 +212,9 @@ if ("launchQueue" in window)
 
                     SetVersionsList();
                 });
-                reader.readAsText(launchParams.files[0]);
+                reader.readAsText(file);
             }
-            else if (/.*\.fountain$/i.test(launchParams.files[0].name))
+            else if (/.*\.fountain$/i.test(file.name))
             {
                 OpenFile(launchParams);
             }

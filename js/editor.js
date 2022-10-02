@@ -182,12 +182,13 @@ function Start()
     else if (sessionStorage.getItem("openedKed"))
     {
         let openedKed = JSON.parse(sessionStorage.getItem("openedKed"));
+        console.log(openedKed);
         let loadedFileName = openedKed.fileSaveName;
         let newName = loadedFileName;
 
         if (localStorage.getItem(`SaveF${loadedFileName}`))
         {
-            newName = prompt(`¡Ojo! Ya tienes un proyecto con el nombre de archivo "${loadedFileName}". Escribe algo diferente abajo para abrir este archivo con otro nombre o déjalo como está si prefieres sobreescribirlo.`, loadedFileName);
+            let newName = prompt(`¡Ojo! Ya tienes un proyecto con el nombre de archivo "${loadedFileName}". Escribe algo diferente abajo para abrir este archivo con otro nombre o déjalo como está si prefieres sobreescribirlo.`, loadedFileName);
         }
 
         Object.assign(loadedProject, openedKed);

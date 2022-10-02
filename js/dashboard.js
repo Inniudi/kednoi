@@ -64,3 +64,15 @@ function GetLastModified(miliseconds)
         return `hace ${Math.floor(seconds / 86400)} días`;
     }
 }
+
+function OpenKedProject(input)
+{
+    let reader = new FileReader();
+    reader.addEventListener('load', function (e)
+    {
+        sessionStorage.setItem("openedKed", e.target.result);
+        console.log("opened");
+        GoToNewFileEditor();
+    });
+    reader.readAsText(input.files[0]);
+}
