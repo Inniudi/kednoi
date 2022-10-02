@@ -25,7 +25,7 @@
         {
             "action": "pages/editor-SW.html",
             "accept": {
-                "text/plain": [
+                "text/*": [
                     ".fountain"
                 ]
             },
@@ -40,7 +40,7 @@
         {
             "action": "pages/editor-SW.html",
             "accept": {
-                "text/plain": [
+                "text/*": [
                     ".ked"
                 ]
             },
