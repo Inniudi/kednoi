@@ -25,7 +25,7 @@
         {
             "action": "pages/editor-SW.html",
             "accept": {
-                "text/*": [
+                "text/plain": [
                     ".fountain"
                 ]
             },
@@ -40,15 +40,15 @@
         {
             "action": "pages/editor-SW.html",
             "accept": {
-                "text/*": [
+                "text/plain": [
                     ".ked"
                 ]
             },
             "icons": [
                 {
-                    "src": "src/ked_icon512.png",
+                    "src": "src/ked_icon512.svg",
                     "sizes": "512x512",
-                    "type": "image/png"
+                    "type": "image/svg"
                 }
             ]
         }

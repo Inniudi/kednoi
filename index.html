@@ -36,7 +36,12 @@
             <div id="dashboardContent">
                 <div id="cardContainer" class="scrollBar">
                 </div>
-                <button id="newProjectBttn" onclick="GoToNewFileEditor()">En blanco</button>
+                <button id="newSPProjectBttn" onclick="GoToNewSPEditor()">
+                    <div id="newSPicon"></div>
+                </button>
+                <button id="newGDProjectBttn" onclick="GoToNewGDEditor()">
+                    <div id="newGDicon"></div>
+                </button>
                 <label id="openProjectBttn" for="openProjectInput">Abrir</label>
                 <input type="file" style="display: none;" id="openProjectInput" accept=".ked"
                     onchange="OpenKedProject(this)">
@@ -65,15 +70,16 @@
                 <div id="logo"></div>
                 <button id="goDashboardBttn" onclick="ToggleDashboard('true')">Ir al tablero</button>
                 <button id="goCreditsBttn" onclick="window.location.href = 'pages/credits.html'">Créditos</button>
-                <div id="versionIdText">v2.0881alpha</div>
+                <div id="versionIdText">v2.1</div>
             </div>
         </div>
         <div id="paperTex" mode="index"></div>
     </div>
 
     <!--#region Templates-->
-    <div class="dashboardCard" id="fileCardTemplate" fileName="" version="" style="visibility: hidden;" hidden
-        aria-hidden="true" onclick="GoToFileEditor(this.getAttribute('fileName'),this.getAttribute('version'))">
+    <div class="dashboardCard" id="fileCardTemplate" fileType="" fileName="" version="" style="visibility: hidden;"
+        hidden aria-hidden="true"
+        onclick="GoToFileEditor(this.getAttribute('fileName'),this.getAttribute('version'), this.getAttribute('fileType'), '../')">
         <div class="cardDecor" type="screenplay"></div>
         <div class="cardImage"></div>
         <div class="cardContent">
