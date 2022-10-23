@@ -1,14 +1,20 @@
-function GoToFileEditor(project, version)
+function GoToFileEditor(project, version, type, scope)
 {
     sessionStorage.setItem("currentSelectedFile", project);
     sessionStorage.setItem("currentSelectedVersion", version);
-    window.location.href = "./pages/editor-SW.html";
+    window.location.href = `${scope}pages/editor-${type}.html`;
 }
 
-function GoToNewFileEditor()
+function GoToNewSPEditor()
 {
     sessionStorage.removeItem("currentSelectedFile");
-    window.location.href = "./pages/editor-SW.html";
+    window.location.href = "../pages/editor-SP.html";
+}
+
+function GoToNewGDEditor()
+{
+    sessionStorage.removeItem("currentSelectedFile");
+    window.location.href = "../pages/editor-GD.html";
 }
 
 function GoToDashboard()

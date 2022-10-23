@@ -1,0 +1,454 @@
+:root {
+    --standard-color: #59656f;
+    --cause-color: #f06262;
+    --effect-color: #75c590;
+    --condition-color: #f0b762;
+    --dialog-color: #548ed0;
+    --choice-color: #f89568;
+    --section-color: #edc689;
+}
+
+.gd-block {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
+    border-radius: 10px;
+
+    margin: 12px 0 12px 0;
+
+    font-family: 'Lexend';
+    line-height: 12pt;
+    font-size: 12pt;
+
+    color: var(--dark);
+    caret-color: var(--primary);
+    background-color: var(--paperColor);
+
+    transition: 0.2s;
+}
+
+.gd-block:hover {
+    box-shadow: 0 0 0 2px var(--primary);
+}
+
+block .gd-block:nth-of-type(1) {
+    width: calc(100% - 38px);
+}
+
+.hide {
+    opacity: 0.3;
+}
+
+.gd-block-sideBar {
+    display: inline-block;
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 20px;
+    height: 100%;
+
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    background-color: var(--standard-color);
+}
+
+.gd-block-container {
+    display: inline-block;
+    width: calc(100% - 20px);
+    margin-left: 16pt;
+    padding: -24px 6px -24px 6px;
+}
+
+.gd-block-content {
+    padding: 10px 10px 10px 4px;
+    outline: none;
+    font-variation-settings: 'wght' 350;
+}
+
+.addButton {
+    position: relative;
+    display: block;
+
+    width: calc(100% + 1px);
+    height: 0;
+
+    margin: auto;
+    margin-left: -1px;
+    padding: 0 0 0 10px;
+
+    border: none;
+    border-bottom-right-radius: 10px;
+
+    background: var(--backgroundColor);
+
+    color: #424c5560;
+    font-family: 'Lexend';
+    line-height: 12pt;
+    font-size: 12pt;
+    text-align: start;
+
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+.gd-block:hover>*>.addButton:not(.buttonSelected),
+.gd-block:hover>*>*>.addButton:not(.buttonSelected) {
+    padding: 6px 0 6px 12pt;
+    height: 30px;
+}
+
+.addButton[addtype="block"] {
+    padding: 4px 0 4px 10px;
+    height: 20px;
+    color: var(--standard-color);
+}
+
+.addButton.buttonSelected {
+    height: 50px;
+}
+
+#drop-target[side="top"] {
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    top: -10px;
+    transition: 0.2s;
+}
+
+#drop-target[side="bottom"] {
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    bottom: -10px;
+    transition: 0.2s;
+}
+
+#drop-target[side="in"] {
+    position: absolute;
+    width: calc(100% - 40px);
+    height: 10px;
+    bottom: 0px;
+    transition: 0.2s;
+}
+
+.drag-over {
+    background-color: var(--primary);
+}
+
+.addBlockToolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+
+    background: var(--primary);
+    overflow: hidden;
+
+    transition: 0.4s;
+}
+
+.addBlockToolbar.toolbarOpen {
+    width: fit-content;
+    height: 50px;
+    padding: 0 0 0 12px;
+}
+
+.addBlockTool {
+    width: 28px;
+    height: 28px;
+    margin: 12px 12px 12px 0;
+    background: var(--light);
+    border: none;
+    text-align: center;
+    display: none;
+}
+
+.addBlockTool.toolActive {
+    display: inline-block;
+}
+
+.gd-block[type="cause"],
+.gd-block[type="choice"],
+.gd-block[type="if"] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.gd-block[type="cause"]>.gd-block-sideBar {
+    background-color: var(--cause-color);
+    border-bottom-left-radius: 0;
+}
+
+.gd-block[type="effect"] {
+    margin-top: -12px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.gd-block[type="effect"]>.gd-block-sideBar {
+    background-color: var(--effect-color);
+    border-top-left-radius: 0;
+}
+
+.gd-block[type="if"]>.gd-block-sideBar {
+    background-color: var(--condition-color);
+    border-bottom-left-radius: 0;
+}
+
+.gd-block[type="if"]>.gd-block-sideBar>.gd-block-typeIcon {
+    width: 80%;
+    height: 80%;
+    background: url("../src/MinorIcons/question.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 6pt 6% 0 14%;
+}
+
+.gd-block[type="dialog"] {
+    font-family: 'Courier Prime Sans';
+}
+
+.gd-block[type="dialog"]>.gd-block-sideBar {
+    background-color: var(--dialog-color);
+}
+
+.gd-block[type="dialog"]>.gd-block-sideBar>.gd-block-typeIcon {
+    width: 80%;
+    height: 70%;
+    background: url("../src/MinorIcons/dialog.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 6pt 6% 0 14%;
+}
+
+.gd-block[type="choice"]>.gd-block-sideBar {
+    background-color: var(--choice-color);
+    border-bottom-left-radius: 0;
+}
+
+.gd-block[type="choice"]>.gd-block-sideBar>.gd-block-typeIcon {
+    width: 75%;
+    height: 75%;
+    background: url("../src/MinorIcons/choice.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 6pt 6% 0 14%;
+}
+
+.gd-block[type="action"]>.gd-block-typeIcon,
+.gd-block[type="description"]>.gd-block-typeIcon,
+.gd-block[type="variable"]>.gd-block-typeIcon,
+.gd-block[type="result"]>.gd-block-typeIcon,
+.gd-block[type="goto"]>.gd-block-typeIcon {
+    position: absolute;
+    width: 12pt;
+    height: 12pt;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 7pt 6px 0 4px;
+}
+
+.gd-block[type="description"]>.gd-block-typeIcon {
+    background-image: url("../src/MinorIcons/description.svg");
+}
+
+.gd-block[type="variable"]>.gd-block-typeIcon {
+    background-image: url("../src/MinorIcons/variable.svg");
+}
+
+.gd-block[type="action"]>.gd-block-typeIcon {
+    background-image: url("../src/MinorIcons/hand.svg");
+}
+
+.gd-block[type="goto"]>.gd-block-typeIcon {
+    background-image: url("../src/MinorIcons/goToIcon.svg");
+}
+
+.gd-block[type="result"]>.gd-block-typeIcon {
+    background-image: url("../src/MinorIcons/star.svg");
+}
+
+.gd-block[type="section"] {
+    background-color: var(--backgroundColor);
+}
+
+.gd-block[type="section"]>.gd-block-sideBar {
+    background-color: var(--section-color);
+}
+
+.gd-block[type="section"]>*>.gd-block-content {
+    color: var(--dark);
+    font-variation-settings: 'wght' 600;
+}
+
+.gd-block[type="section"][collapsed="true"]>.gd-block-container>.collapsable {
+    height: 0;
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+.gd-block[type="section"]>.gd-block-sideBar>.gd-block-typeIcon {
+    width: 80%;
+    height: 12pt;
+    background: url("../src/MinorIcons/arrow.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 6pt 6% 0 14%;
+    transition: 0.2s;
+}
+
+.gd-block[type="section"][collapsed="true"]>.gd-block-sideBar>.gd-block-typeIcon {
+    transform: rotate(-90deg);
+}
+
+.gd-block[type="and"]>.gd-block-container,
+.gd-block[type="or"]>.gd-block-container,
+.gd-block[type="not"]>.gd-block-container,
+.gd-block[type="text"]>.gd-block-container {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.gd-block[type="and"] .gd-block-content,
+.gd-block[type="not"] .gd-block-content,
+.gd-block[type="or"] .gd-block-content {
+    color: var(--condition-color);
+    font-variation-settings: 'wght' 600;
+}
+
+.removeBttn {
+    background: url(../src/MinorIcons/cross.svg);
+    background-size: contain;
+    border: none;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 8px;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.gd-block:hover>.removeBttn {
+    opacity: 1;
+}
+
+.addBlockTool[tool="section"] {
+    background: url(../src/ToolIcons/SceneheadingIcon.svg);
+    background-size: contain;
+}
+
+.addBlockTool[tool="destination"] {
+    background: url(../src/MinorIcons/blockID.svg);
+    background-size: contain;
+}
+
+.addBlockTool[tool="cause"] {
+    background: var(--cause-color);
+    border: solid 2px var(--light);
+    border-radius: 20px;
+}
+
+.addBlockTool[tool="effect"] {
+    background: var(--effect-color);
+    border: solid 2px var(--light);
+    border-radius: 20px;
+}
+
+.addBlockTool[tool="if"] {
+    background: url(../src/MinorIcons/question.svg);
+    background-size: contain;
+}
+
+.addBlockTool[tool="and"] {
+    background: var(--condition-color);
+    border-radius: 20px;
+}
+
+.addBlockTool[tool="or"] {
+    background: var(--condition-color);
+    border-radius: 20px;
+}
+
+.addBlockTool[tool="not"] {
+    background: var(--condition-color);
+    border-radius: 20px;
+}
+
+.addBlockTool[tool="description"] {
+    background: url(../src/MinorIcons/description.svg);
+    background-size: contain;
+}
+
+.addBlockTool[tool="variable"] {
+    background: url(../src/MinorIcons/variable.svg);
+    background-size: contain;
+}
+
+.addBlockTool[tool="action"] {
+    background: url(../src/MinorIcons/hand.svg);
+    background-size: contain;
+}
+
+.addBlockTool[tool="result"] {
+    background: url(../src/MinorIcons/star.svg);
+    background-size: contain;
+}
+
+.addBlockTool[tool="dialog"] {
+    background: url(../src/MinorIcons/dialog.svg);
+    background-size: contain;
+}
+
+.addBlockTool[tool="choice"] {
+    background: url(../src/MinorIcons/choice.svg);
+    background-size: contain;
+}
+
+.addBlockTool[tool="goto"] {
+    background: url(../src/MinorIcons/goToIcon.svg);
+    background-size: contain;
+}
+
+#idContainer {
+    width: calc(100% + 6px);
+    margin-left: -6px;
+    margin-bottom: 6px;
+    padding: 6pt;
+    background-color: var(--standard-color);
+    border-top-right-radius: 10px;
+    opacity: 0.75;
+    transition: 0.2s;
+}
+
+.gd-block:hover>*>#idContainer {
+    width: calc(100% - 30px);
+}
+
+.gd-block[type="destination"]>.gd-block-sideBar>.gd-block-typeIcon {
+    width: 75%;
+    height: 75%;
+    background-image: url("../src/MinorIcons/blockID.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 6pt 6% 0 14%;
+}
+
+#blockIdText {
+    font-variation-settings: 'wght' 400;
+    color: var(--light);
+}

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../src/iconPrimary.svg" type="image/x-icon">
+    <title>Kednoi</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!--Kednoi-->
+    <link rel="stylesheet" id="fontsLink" href="../css/fonts.css">
+    <link rel="stylesheet" id="themeLink" href="../css/themes/lightTheme.css">
+    <link rel="stylesheet" href="../css/scrollBar.css">
+    <link rel="stylesheet" href="../css/scriptStyle.css">
+    <link rel="stylesheet" media="(min-width: 1200px)" href="../css/editorStyle.css">
+    <link rel="stylesheet" media="(max-width: 1200px)" href="../css/editorStyleSmall.css">
+    <link rel="stylesheet" href="../css/overlays.css">
+</head>
+
+<body>
+    <div id="scrollBox" class="scrollBar">
+        <div class="editorContainer">
+            <div id="input" class="input" contenteditable="true" style="outline: none;">
+                <div>&nbsp;</div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="burgerMenu" open="false" onclick="ToggleMenu(event, this)">
+        <div id="headingContainer">
+            <div id="icon"></div>
+            <div id="fileNameText">Guion sin título</div>
+            <div id="savedIcon">*</div>
+            <button id="burgerButton" onclick="ToggleMenu(event, this)">
+                <div class="burgerButtonPart unclickable" id="hh" index=1></div>
+                <div class="burgerButtonPart unclickable" id="hh" index=2></div>
+                <div class="burgerButtonPart unclickable" id="hh" index=3></div>
+            </button>
+        </div>
+        <div id="menuContainer">
+            <div class="accordion accordion-flush" id="accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Archivo
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                        data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                            <div class="col-12 mb-3">
+                                <label for="fileNameInput" class="form-label">Nombre del archivo:</label>
+                                <input type="text" class="form-control" id="fileNameInput"
+                                    aria-describedby="fileNameInputHelp">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="versionInput" class="form-label">Versión:</label>
+                                <input type="text" class="form-control" id="versionInput"
+                                    aria-describedby="fileNameInputHelp" placeholder="V1">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="statusSelect" class="form-label">Estado:</label>
+                                <select class="form-select" aria-label="statusSelect" id="statusSelect">
+                                    <option value="WIP">En proceso</option>
+                                    <option value="en revisión">En revisión</option>
+                                    <option value="borrador">Borrador</option>
+                                    <option value="terminado">Terminado</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <label for="thumbnailSelect" class="form-label">Apariencia en el tablero:</label>
+                                <label for="thumbnailSelect" class="form-label">Miniatura:</label>
+                                <label for="thumbnailSelect"
+                                    class="col-12 btn btn-outline-secondary rounded-pill">Imagen</label>
+                                <input type="file" class="col-12" style="display: none;" id="thumbnailSelect"
+                                    onchange="GetThumbnailFromSelected(event)">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="colorPicker" class="form-label">Color:</label>
+                                <input type="color" class="col-12 rounded-pill form-control form-control-color"
+                                    id="colorPicker" value="#f06262" onchange="Unsave()">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <label class="btn btn-outline-primary" type="button" for="openInput">Importar</label>
+                                <input type="file" style="display: none;" id="openInput" accept=".txt, .fountain"
+                                    onchange="OpenFile(this)">
+                                <button class="btn btn-outline-primary" type="button" onclick="ShareFile()">Guardar como
+                                    archivo</button>
+                                <button class="btn btn-primary" type="button"
+                                    onclick="SaveFileToLocal('SP')">Guardar</button>
+                            </div>
+                            <div class="form-check form-switch mt-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="autoSaveSwitch"
+                                    onclick="ToggleAutoSave()">
+                                <label class="form-check-label" for="autoSaveSwitch">Guardado automático</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Datos del guion
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                        data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                            <div class="col-12 mb-3">
+                                <label for="titleInput" class="form-label">Título:</label>
+                                <input type="text" class="form-control" id="titleInput"
+                                    aria-describedby="fileNameInputHelp">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input class="form-check-input" type="checkbox" id="episodeCheck"
+                                    onclick="SavePreferences()">
+                                <label for="episodeInput" class="form-label">Episodio:</label>
+                                <input type="text" class="form-control" id="episodeInput"
+                                    aria-describedby="fileNameInputHelp" placeholder="Episodio #101, T1E01...">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input class="form-check-input" type="checkbox" id="creditCheck"
+                                    onclick="SavePreferences()">
+                                <label for="creditInput" class="form-label">Crédito:</label>
+                                <input type="text" class="form-control" id="creditInput"
+                                    aria-describedby="fileNameInputHelp" placeholder="Escrito por:">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="authorInput" class="form-label">Autoría:</label>
+                                <input type="text" class="form-control" id="authorInput"
+                                    aria-describedby="fileNameInputHelp">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input class="form-check-input" type="checkbox" id="sourceCheck"
+                                    onclick="SavePreferences()">
+                                <label for="sourceInput" class="form-label">Origen o fuente:</label>
+                                <input type="text" class="form-control" id="sourceInput"
+                                    aria-describedby="fileNameInputHelp" placeholder="Basado en hechos reales">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input class="form-check-input" type="checkbox" id="contactCheck"
+                                    onclick="SavePreferences()">
+                                <label for="contactInput" class="form-label">Contacto:</label>
+                                <input type="text" class="form-control" id="contactInput"
+                                    aria-describedby="fileNameInputHelp" placeholder="ejemplo@email.com" multiline>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Exportar
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                        data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="exportTitle" checked
+                                    onclick="JustSave()">
+                                <label class="form-check-label" for="exportTitle">Exportar
+                                    portada</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="exportVersion" checked
+                                    onclick="JustSave()">
+                                <label class="form-check-label" for="exportVersion">Incluir
+                                    ident. de
+                                    versión</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="exportDate" checked
+                                    onclick="JustSave()">
+                                <label class="form-check-label" for="exportDate">Incluir
+                                    fecha
+                                    de
+                                    versión</label>
+                            </div>
+                            <div class="d-grid">
+                                <label class="mb-2 mt-2"><strong>Exportar a Fountain</strong></label>
+                                <div class="row"><button class="btn btn-primary col-5 m-auto" type="button"
+                                        onclick="exportFountain();">.fountain</button>
+                                    <button class="btn btn-primary col-5 m-auto" type="button"
+                                        onclick="exportFountainTxt();">.txt</button>
+                                </div>
+
+                                <label class="mb-2 mt-2"><strong>Exportar a PDF</strong></label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" value="" id="sceneNumbersLeft"
+                                        checked onclick="JustSave()">
+                                    <label class="form-check-label" for="sceneNumbersLeft">Números de escena a la
+                                        izquierda</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" value="" id="sceneNumbersRight"
+                                        checked onclick="JustSave()">
+                                    <label class="form-check-label" for="sceneNumbersRight">Números de escena a la
+                                        derecha</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" value="" id="exportBoneyards"
+                                        checked onclick="JustSave()">
+                                    <label class="form-check-label" for="exportBoneyards">Exportar anotaciones
+                                        (/*)</label>
+                                </div>
+                                <button class="btn btn-primary" type="button" onclick="exportPDF()">.pdf</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Administrar
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                        data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                            <label class="form-label">Versiones:</label>
+                            <div id="verContainer">
+
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" type="button" onclick="AddNewVersion()">Crear nueva
+                                    versión</button>
+                            </div>
+                            <label class="form-label mt-3">Proyecto:</label>
+                            <div class="d-grid gap-2">
+                                <!--button class="btn btn-light" type="button" onclick="">Crear una copia</button-->
+                                <button class="btn btn-danger" type="button" onclick="DeleteProject()">Eliminar
+                                    guion</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Ajustes
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                        data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                            <div class="col-12 mb-3">
+                                <label class="form-label" for="themeSelect">Esquema de color:</label>
+                                <select class="form-select" aria-label="themeSelect" id="themeSelect"
+                                    onchange="SetTheme()">
+                                    <option value="1" selected>Básico</option>
+                                    <option value="2">Oscuro</option>
+                                    <option value="3">Otoño</option>
+                                    <option value="4">Monocromático neutro</option>
+                                </select>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="sansEnabled"
+                                    onchange="ToggleFont()" checked>
+                                <label class="form-check-label" for="sansEnabled">Fuente sin serifa</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="boldHeadings"
+                                    onchange="ToggleFont()" checked disabled>
+                                <label class="form-check-label" for="boldHeadings">Encabezados en
+                                    negrita</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="boldCharacters"
+                                    onchange="ToggleFont()" checked disabled>
+                                <label class="form-check-label" for="boldCharacters">Personajes en
+                                    negrita</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="boldTransitions"
+                                    onchange="ToggleFont()" checked disabled>
+                                <label class="form-check-label" for="boldTransitions">Transiciones en
+                                    negrita</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="headingHighlight"
+                                    onchange="ToggleFont()" checked disabled>
+                                <label class="form-check-label" for="headingHighlight">Resaltar
+                                    encabezados</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="sceneNumbers"
+                                    onchange="ToggleFont()" disabled>
+                                <label class="form-check-label" for="sceneNumbers">Enumerar escenas</label>
+                            </div>
+                            <div class="col-auto">
+                                <span id="helpline" class="form-text">
+                                    Estas opciones solo afectan a la vista de edición, no al archivo exportado.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-grid gap-2">
+            <button class="btn" type="button" id="dashboardButton" onclick="GoToDashboard()">Volver al
+                tablero</button>
+        </div>
+    </div>
+    <div id="toolbarContainer">
+        <div id="fntypes-toolbar" class="toolbar">
+            <div class="selectedToolMarker" id="selectedMarker-types" selectedIndex=0></div>
+            <div class="tool" toolIndex="0" selected="true" tool="SCENE_HEADING"
+                style="background-image:url(../src/ToolIcons/SceneheadingIcon.svg)" onclick="SelectTool(this, true)">
+            </div>
+            <div class="tool" toolIndex="1" selected="false" tool="ACTION"
+                style="background-image:url(../src/ToolIcons/ActionIcon.svg)" onclick="SelectTool(this, true)">
+            </div>
+            <div class="tool" toolIndex="2" selected="false" tool="CHARACTER"
+                style="background-image:url(../src/ToolIcons/CharacterIcon.svg)" onclick="SelectTool(this, true)">
+            </div>
+            <div class="tool" toolIndex="3" selected="false" tool="PARENTHETICAL"
+                style="background-image:url(../src/ToolIcons/ParentheticalIcon.svg)" onclick="SelectTool(this, true)">
+            </div>
+            <div class="tool" toolIndex="4" selected="false" tool="DIALOG"
+                style="background-image:url(../src/ToolIcons/DialogIcon.svg)" onclick="SelectTool(this, true)">
+            </div>
+            <div class="tool" toolIndex="5" selected="false" tool="TRANSITION"
+                style="background-image:url(../src/ToolIcons/TransitionIcon.svg)" onclick="SelectTool(this, true)">
+            </div>
+        </div>
+        <div id="font-toolbar" class="toolbar">
+            <div class="selectedToolMarker" id="selectedMarker-font"></div>
+            <div id="toolFontIcon" style="background-image:url(../src/ToolIcons/font.svg)"></div>
+            <div class="tool" toolIndex="0" selected="false" tool="BOLD"
+                style="background-image:url(../src/ToolIcons/bold.svg)" onclick="SelectMarkup(this, true)">
+            </div>
+            <div class="tool" toolIndex="1" selected="false" tool="ITALIC"
+                style="background-image:url(../src/ToolIcons/italic.svg)" onclick="SelectMarkup(this, true)">
+            </div>
+            <div class="tool" toolIndex="2" selected="false" tool="UNDERLINE"
+                style="background-image:url(../src/ToolIcons/underlined.svg)" onclick="SelectMarkup(this, true)">
+            </div>
+            <div class="tool" toolIndex="3" selected="false" tool="CENTERED"
+                style="background-image:url(../src/ToolIcons/center.svg)" onclick="SelectMarkup(this, true)">
+            </div>
+        </div>
+        <div id="nonPrintable-toolbar" class="toolbar">
+            <div class="selectedToolMarker" id="selectedMarker-nonprint"></div>
+            <div id="toolAddIcon" style="background-image:url(../src/ToolIcons/add.svg)"></div>
+            <div class="tool" toolIndex="0" selected="false" tool="PAGEBREAK"
+                style="background-image:url(../src/ToolIcons/pagebreak.svg)" onclick="SelectAdd(this)">
+            </div>
+            <div class="tool" toolIndex="1" selected="false" tool="SYNOPSE"
+                style="background-image:url(../src/ToolIcons/synopse.svg)" onclick="SelectAdd(this)">
+            </div>
+            <div class="tool" toolIndex="2" selected="false" tool="BONEYARD"
+                style="background-image:url(../src/ToolIcons/boneyard.svg)" onclick="SelectAdd(this)">
+            </div>
+            <div class="tool" toolIndex="3" selected="false" tool="SECTION 1"
+                style="background-image:url(../src/ToolIcons/act1.svg)" onclick="SelectAdd(this)">
+            </div>
+            <div class="tool" toolIndex="4" selected="false" tool="SECTION 2"
+                style="background-image:url(../src/ToolIcons/act2.svg)" onclick="SelectAdd(this)">
+            </div>
+            <div class="tool" toolIndex="5" selected="false" tool="SECTION 3"
+                style="background-image:url(../src/ToolIcons/act3.svg)" onclick="SelectAdd(this)">
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="leftBottomBar">
+        <div id="pageCounter">
+            <div id="pageText">00</div>
+            <div id="pageIcon"></div>
+        </div>
+        <button id="fullScreenBttn" onclick="ToggleFullScreen()"></button>
+    </div>
+
+    <!--Overlays-->
+    <div id="paperTex"></div>
+
+    <!--#region TEMPLATES-->
+    <div style="display:none">
+        <!--Version list item-->
+        <div class="col-12 d-flex align-self-end" id="verTemplate" style="visibility: hidden;" version="">
+            <div class="col-7 align-self-center">
+                <h6 class="mb-0" id="title">Title</h6>
+                <span class="badge text-bg-secondary ms-0 smaller d-inline-block" id="status">Draft</span>
+                <small id="lastMod" class="smaller">12/06/2022</small>
+            </div>
+            <div class="col-5">
+                <button class="versionBtn" type="button" action="delete"
+                    onclick="DeleteVersion(this.parentElement.parentElement.getAttribute('version'))"></button>
+                <button class="versionBtn" type="button" action="edit"
+                    onclick="GoToFileEditor(fileName, this.parentElement.parentElement.getAttribute('version'))"></button>
+            </div>
+        </div>
+    </div>
+    <!--#endregion-->
+
+    <!--#region scripts-->
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+
+    <!--html2pdf.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+        integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!--Kednoi-->
+    <script src="../js/classes.js"></script>
+    <script src="../js/manager.js"></script>
+    <script src="../js/preferences.js"></script>
+    <script src="../js/versions.js"></script>
+    <script src="../js/htmlToFountain.js"></script>
+    <script src="../js/fountainToHtml.js"></script>
+    <script src="../js/save+load.js"></script>
+    <script src="../js/pageCounter.js"></script>
+    <script src="../js/export.js"></script>
+    <script src="../js/editor.js"></script>
+    <script src="../js/toolbar.js"></script>
+    <!--#endregion-->
+</body>
+
+</html>

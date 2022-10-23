@@ -101,7 +101,7 @@ function OpenFile(openInput)
 
         Observe();
 
-        SaveFileToLocal(loadedVersion.versionLastMod);
+        SaveFileToLocal(loadedProject.type, loadedVersion.versionLastMod);
         CountPages();
     });
     reader.readAsText(openInput.files[0]);

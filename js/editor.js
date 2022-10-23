@@ -106,7 +106,7 @@ inputElement.addEventListener('keydown', e =>
     else if (e.code === "KeyS" && e.ctrlKey)
     {
         e.preventDefault();
-        SaveFileToLocal();
+        SaveFileToLocal("SP");
     }
 
     else if ((e.code === "KeyB" || e.code === "KeyI" || e.code === "KeyU") && e.ctrlKey)

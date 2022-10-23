@@ -31,6 +31,6 @@ function CountPages()
             height = 0;
         }
     }
-    pageCounterText.textContent = totalPages.toLocaleString('es-ES', { minimumIntegerDigits: 2, useGrouping: false });
+    pageCounterText.textContent = `≈ ${(totalPages + 1).toLocaleString('es-ES', { minimumIntegerDigits: 2, useGrouping: false })}`;
     return totalPages;
 }

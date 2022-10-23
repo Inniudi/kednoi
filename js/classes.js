@@ -5,7 +5,7 @@ class SaveFile
         this.fileSaveName = saveName;
         this.color = colorVar || "#f06262";
         this.thumbnail = previewImg;
-        this.type = type || "screenplay";
+        this.type = type || "SP";
 
         this.lastVersionId;
 

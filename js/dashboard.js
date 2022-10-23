@@ -14,6 +14,7 @@ for (var i = 0, len = localStorage.length; i < len; ++i)
 
         newCard.setAttribute("fileName", projectObj.fileSaveName);
         newCard.setAttribute("version", currentVersion.versionId);
+        newCard.setAttribute("fileType", projectObj.type === "screenplay" ? "SP" : projectObj.type);
 
         console.log(projectObj.fileSaveName);
         newCard.querySelector(".cardTitle").childNodes[0].textContent = projectObj.fileSaveName;
