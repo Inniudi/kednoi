@@ -70,7 +70,7 @@
                 <div id="logo"></div>
                 <button id="goDashboardBttn" onclick="ToggleDashboard('true')">Ir al tablero</button>
                 <button id="goCreditsBttn" onclick="window.location.href = 'pages/credits.html'">Créditos</button>
-                <div id="versionIdText">v2.1a</div>
+                <div id="versionIdText">v2.89a</div>
             </div>
         </div>
         <div id="paperTex" mode="index"></div>
@@ -79,7 +79,7 @@
     <!--#region Templates-->
     <div class="dashboardCard" id="fileCardTemplate" fileType="" fileName="" version="" style="visibility: hidden;"
         hidden aria-hidden="true"
-        onclick="GoToFileEditor(this.getAttribute('fileName'),this.getAttribute('version'), this.getAttribute('fileType'), '../')">
+        onclick="GoToFileEditor(this.getAttribute('fileName'),this.getAttribute('version'), this.getAttribute('fileType'), '')">
         <div class="cardDecor" type="screenplay"></div>
         <div class="cardImage"></div>
         <div class="cardContent">
