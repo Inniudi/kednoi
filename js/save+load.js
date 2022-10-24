@@ -8,7 +8,7 @@ let versionInput = document.getElementById("versionInput");
 statusSelect = document.getElementById("statusSelect");
 tumbnailSelect = document.getElementById("thumbnailSelect");
 colorPicker = document.getElementById("colorPicker");
-thumbnailFile = "../src/projectPreviewImg.png";
+let thumbnailFile = "../src/projectPreviewImg.png";
 
 titleInput = document.getElementById("titleInput");
 episodeInput = document.getElementById("episodeInput");
