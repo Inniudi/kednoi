@@ -44,6 +44,10 @@ function SaveFileToLocal(importSaveDate)
     //Project data
     if (fileNameInput.value.trim() != fileName)
     {
+        if (fileName.trim() === "")
+        {
+            fileNameInput.value = "Guion sin título";
+        }
         if (!localStorage.getItem("SaveF" + fileNameInput.value.trim()))
         {
             localStorage.removeItem(`SaveF${fileName}`);
@@ -93,6 +97,10 @@ function ShareFile()
     //Project data
     if (fileNameInput.value.trim() != fileName)
     {
+        if (fileName.trim() === "")
+        {
+            fileNameInput.value = "Guion sin título";
+        }
         if (!localStorage.getItem("SaveF" + fileNameInput.value.trim()))
         {
             localStorage.removeItem(`SaveF${fileName}`);
