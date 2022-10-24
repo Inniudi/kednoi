@@ -214,6 +214,7 @@ function Start()
     else
     {
         fileNameText.textContent = fileName;
+        fileNameInput.value = fileName;
     }
     Observe();
     CountPages();
