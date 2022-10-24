@@ -8,13 +8,13 @@ function GoToFileEditor(project, version, type, scope)
 function GoToNewSPEditor()
 {
     sessionStorage.removeItem("currentSelectedFile");
-    window.location.href = "../pages/editor-SP.html";
+    window.location.href = "pages/editor-SP.html";
 }
 
 function GoToNewGDEditor()
 {
     sessionStorage.removeItem("currentSelectedFile");
-    window.location.href = "../pages/editor-GD.html";
+    window.location.href = "pages/editor-GD.html";
 }
 
 function GoToDashboard()
