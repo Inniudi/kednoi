@@ -2,7 +2,7 @@ class SaveFile
 {
     constructor(saveName, dateNow, htmlSaveC, previewImg, colorVar, status, version, type)
     {
-        this.fileSaveName = saveName;
+        this.fileSaveName = saveName || "Guion sin título";
         this.color = colorVar || "#f06262";
         this.thumbnail = previewImg;
         this.type = type || "SP";
