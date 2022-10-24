@@ -41,12 +41,17 @@ function SaveFileToLocal(importSaveDate)
 
     importSaveDate = importSaveDate || false;
 
+    if (loadedProject.fileSaveName === null)
+    {
+        fileNameInput.value = prompt(`¿Con qué nombre quieres guardar este archivo?`);
+    }
+
     //Project data
     if (fileNameInput.value.trim() != fileName)
     {
-        if (fileName.trim() === "")
+        while (fileNameInput.value.trim() === "")
         {
-            fileNameInput.value = "Guion sin título";
+            fileNameInput.value = prompt(`Oye, que no se pueden guardar proyectos sin nombre. Ponle alguno, porfa, aunque sea \'jhsjhd\'`);
         }
         if (!localStorage.getItem("SaveF" + fileNameInput.value.trim()))
         {
@@ -94,12 +99,17 @@ function ShareFile()
 {
     importSaveDate = false;
 
+    if (loadedProject.fileSaveName === null)
+    {
+        fileNameInput.value = prompt(`¿Con qué nombre quieres guardar este archivo?`);
+    }
+
     //Project data
     if (fileNameInput.value.trim() != fileName)
     {
-        if (fileName.trim() === "")
+        while (fileNameInput.value.trim() === "")
         {
-            fileNameInput.value = "Guion sin título";
+            fileNameInput.value = prompt(`Oye, que no se pueden guardar proyectos sin nombre. Ponle alguno, porfa, aunque sea \'jhsjhd\'`);
         }
         if (!localStorage.getItem("SaveF" + fileNameInput.value.trim()))
         {
