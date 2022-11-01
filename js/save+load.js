@@ -8,7 +8,7 @@ let versionInput = document.getElementById("versionInput");
 statusSelect = document.getElementById("statusSelect");
 tumbnailSelect = document.getElementById("thumbnailSelect");
 colorPicker = document.getElementById("colorPicker");
-let thumbnailFile = "../src/projectPreviewImg.png";
+let thumbnailFile = "src/projectPreviewImg.png";
 
 titleInput = document.getElementById("titleInput");
 episodeInput = document.getElementById("episodeInput");
@@ -33,15 +33,16 @@ function GetThumbnailFromSelected(event)
         Unsave();
     });
     reader.readAsDataURL(thumbnailSelect.files[0]);
+    Unsave();
 }
 
-function SaveFileToLocal(importSaveDate)
+function SaveFileToLocal(type, importSaveDate)
 {
     if (saved) return;
 
     importSaveDate = importSaveDate || false;
 
-    if (loadedProject.fileSaveName === null)
+    if (loadedProject.fileSaveName === null && fileNameInput.value.trim() === "")
     {
         fileNameInput.value = prompt(`¿Con qué nombre quieres guardar este archivo?`);
     }
@@ -65,6 +66,7 @@ function SaveFileToLocal(importSaveDate)
     }
     if (loadedProject.thumbnail != thumbnailFile) loadedProject.thumbnail = thumbnailFile;
     if (loadedProject.color != colorPicker.value) loadedProject.color = colorPicker.value;
+    loadedProject.type = type;
 
     //Version data
     var index = 0;
@@ -87,7 +89,7 @@ function SaveFileToLocal(importSaveDate)
     Object.assign(loadedProject.scriptData, newScriptData);
 
     //Actually save
-    localStorage.setItem("SaveF" + fileName, JSON.stringify(loadedProject));
+    localStorage.setItem(`SaveF${fileName}`, JSON.stringify(loadedProject));
     sessionStorage.setItem("currentSelectedVersion", loadedVersion.versionId);
     savedIcon.classList.remove("not-saved");
     saved = true;
@@ -189,7 +191,8 @@ function Unsave()
 {
     if (saved)
     {
-        savedIcon.classList.add("not-saved"); saved = false;
+        savedIcon.classList.add("not-saved");
+        saved = false;
     }
 }
 

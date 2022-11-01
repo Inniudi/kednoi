@@ -51,7 +51,7 @@ function AddNewVersion()
     if (confirm("Esta acción creará una nueva versión a partir de la que se está editando, sea o no la última versión del guion."))
     {
         saved = false;
-        SaveFileToLocal();
+        SaveFileToLocal(loadedProject.type);
         while (saved === false) { }
         newVersionId = prompt(`Nombra o enumera la nueva versión. La versión actual es \"${loadedVersion.versionId}\".`);
         while (loadedProject.versions.find(x => x.versionId === newVersionId))
@@ -63,6 +63,12 @@ function AddNewVersion()
         newVersion.versionId = newVersionId;
         var i = loadedProject.versions.indexOf(loadedProject.versions.find(x => x.versionId === loadedVersion.versionId)) + 1;
         loadedProject.versions.splice(i, 0, newVersion);
-        SaveFileToLocal();
+        Unsave();
+        SaveFileToLocal(loadedProject.type);
+
+        if (confirm("¿Quieres abrir esta versión ahora?"))
+        {
+            GoToFileEditor(fileName, newVersionId, 'SP', '../');
+        }
     }
 }

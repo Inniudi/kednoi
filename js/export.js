@@ -159,7 +159,6 @@ function exportPDF()
 
             let splitText = doc.splitTextToSize(block.textContent, maxWidth);
             let lineCountDifference = Math.round((10.17 - currentHeight) / (1 / 72 * 12));
-            console.log(lineCountDifference);
             if (lineCountDifference < splitText.length)
             {
                 let firstHalf = splitText.slice(0, lineCountDifference);
@@ -171,8 +170,6 @@ function exportPDF()
                         currentHeight += 1 / 72 * 12;
                         doc.setFont("Courier Prime", "normal", "bold");
                         currentScene++;
-                        if (sceneNsLeft.checked) doc.text(`${currentScene}`, margin - 0.3, currentHeight, { align: "right" });
-                        if (sceneNsRight.checked) doc.text(`${currentScene}`, margin + maxWidth + 0.2, currentHeight, { align: "left" });
                         break;
 
                     case "CHARACTER":
@@ -200,11 +197,14 @@ function exportPDF()
                 doc.setFont("Courier Prime", "normal", "normal");
                 doc.text(`${++currentPage}.`, 7.5, 0.5, { align: "right" });
                 currentHeight = 1;
+                console.log(currentScene);
 
                 switch (type)
                 {
                     case "SCENE_HEADING":
                         doc.setFont("Courier Prime", "normal", "bold");
+                        if (sceneNsLeft.checked) doc.text(`${currentScene}`, margin - 0.3, currentHeight, { align: "right" });
+                        if (sceneNsRight.checked) doc.text(`${currentScene}`, margin + maxWidth + 0.2, currentHeight, { align: "left" });
                         break;
 
                     case "CHARACTER":
@@ -232,7 +232,6 @@ function exportPDF()
             {
                 if ((type === "SCENE_HEADING" && lineCountDifference <= 2) || (type === "CHARACTER" && lineCountDifference <= 2))
                 {
-                    console.log(type);
                     doc.addPage();
                     doc.setFont("Courier Prime", "normal", "normal");
                     doc.text(`${++currentPage}.`, 7.5, 0.5, { align: "right" });

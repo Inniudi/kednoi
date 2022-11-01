@@ -56,16 +56,17 @@
                             <div class="col-12 mb-3">
                                 <label for="fileNameInput" class="form-label">Nombre del archivo:</label>
                                 <input type="text" class="form-control" id="fileNameInput"
-                                    aria-describedby="fileNameInputHelp">
+                                    aria-describedby="fileNameInputHelp" onchange="Unsave()">
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="versionInput" class="form-label">Versión:</label>
                                 <input type="text" class="form-control" id="versionInput"
-                                    aria-describedby="fileNameInputHelp" placeholder="V1">
+                                    aria-describedby="fileNameInputHelp" placeholder="V1" onchange="Unsave()">
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="statusSelect" class="form-label">Estado:</label>
-                                <select class="form-select" aria-label="statusSelect" id="statusSelect">
+                                <select class="form-select" aria-label="statusSelect" id="statusSelect"
+                                    onchange="Unsave()">
                                     <option value="WIP">En proceso</option>
                                     <option value="en revisión">En revisión</option>
                                     <option value="borrador">Borrador</option>
@@ -399,7 +400,7 @@
                 <button class="versionBtn" type="button" action="delete"
                     onclick="DeleteVersion(this.parentElement.parentElement.getAttribute('version'))"></button>
                 <button class="versionBtn" type="button" action="edit"
-                    onclick="GoToFileEditor(fileName, this.parentElement.parentElement.getAttribute('version'), 'SP', '/..')"></button>
+                    onclick="GoToFileEditor(fileName, this.parentElement.parentElement.getAttribute('version'), 'SP', '../')"></button>
             </div>
         </div>
     </div>

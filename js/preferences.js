@@ -26,15 +26,15 @@ function SavePreferences()
         exportVersion.checked,
         exportDate.checked,
         themeSelect.value,
-        sansEnabled.checked,
-        boldHeadings.checked,
-        boldCharacters.checked,
-        boldTransitions.checked,
-        headingHightlight.checked,
-        sceneNumbers.checked,
-        sceneNsLeft.checked,
-        sceneNsRight.checked,
-        exportBoneyards.checked
+        sansEnabled ? sansEnabled.checked : true,
+        boldHeadings ? boldHeadings.checked : true,
+        boldCharacters ? boldCharacters.checked : true,
+        boldTransitions ? boldTransitions.checked : true,
+        headingHightlight ? headingHightlight.checked : true,
+        sceneNumbers ? sceneNumbers.checked : true,
+        sceneNsLeft ? sceneNsLeft.checked : false,
+        sceneNsRight ? sceneNsRight.checked : false,
+        exportBoneyards ? exportBoneyards.checked : false
     );
     localStorage.setItem("UserPrefs", JSON.stringify(newPrefs));
 }
@@ -49,16 +49,16 @@ function LoadPreferences()
     exportDate.checked = loadedPrefs.includeVersionLastMod;
     themeSelect.value = loadedPrefs.theme;
     SetTheme();
-    sansEnabled.checked = loadedPrefs.sansSerifEnabled;
+    if (sansEnabled) sansEnabled.checked = loadedPrefs.sansSerifEnabled;
     ToggleFont();
-    boldHeadings.checked = loadedPrefs.boldHeadings;
-    boldCharacters.checked = loadedPrefs.boldCharacters;
-    boldTransitions.checked = loadedPrefs.boldTransitions;
-    headingHightlight.checked = loadedPrefs.headingHightlight;
-    sceneNumbers.checked = loadedPrefs.sceneNumbers;
-    sceneNsLeft.checked = loadedPrefs.sceneNsLeft;
-    sceneNsRight.checked = loadedPrefs.sceneNsRight;
-    exportBoneyards.checked = loadedPrefs.exportBoneyards;
+    if (sansEnabled) boldHeadings.checked = loadedPrefs.boldHeadings;
+    if (boldCharacters) boldCharacters.checked = loadedPrefs.boldCharacters;
+    if (boldTransitions) boldTransitions.checked = loadedPrefs.boldTransitions;
+    if (headingHightlight) headingHightlight.checked = loadedPrefs.headingHightlight;
+    if (sceneNumbers) sceneNumbers.checked = loadedPrefs.sceneNumbers;
+    if (sceneNsLeft) sceneNsLeft.checked = loadedPrefs.sceneNsLeft;
+    if (sceneNsRight) sceneNsRight.checked = loadedPrefs.sceneNsRight;
+    if (exportBoneyards) exportBoneyards.checked = loadedPrefs.exportBoneyards;
     ToggleAutoSave();
 }
 
@@ -67,7 +67,7 @@ function ToggleAutoSave()
 {
     if (autoSaveToggle.checked)
     {
-        interval = setInterval(SaveFileToLocal, 10 * 1000);
+        interval = setInterval(SaveFileToLocal(loadedProject.type), 10 * 1000);
     }
     else
     {
@@ -78,7 +78,7 @@ function ToggleAutoSave()
 
 function ToggleFont()
 {
-    if (sansEnabled.checked)
+    if (sansEnabled && sansEnabled.checked)
     {
         document.documentElement.style.setProperty("--font", "Courier Prime Sans");
     }

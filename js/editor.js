@@ -229,7 +229,7 @@ function CheckNode(n)
 
     let contentToCheck = node.innerText.replaceAll(`<br>`, `\n`);
 
-    let prevType = node.previousSibling.getAttribute("fntype");
+    let prevType = node.previousSibling ? node.previousSibling.getAttribute("fntype") : null;
     if (!/^\(.*/m.test(contentToCheck) && (prevType === "CHARACTER" || prevType === "PARENTHETICAL"))
     {
         console.log("js");
