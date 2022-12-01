@@ -68,41 +68,51 @@
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                         data-bs-parent="#accordion">
                         <div class="accordion-body">
+                            <label class="mb-2"><strong>Datos de guardado:</strong></label>
                             <div class="col-12 mb-3">
                                 <label for="fileNameInput" class="form-label">Nombre del archivo:</label>
                                 <input type="text" class="form-control" id="fileNameInput"
-                                    aria-describedby="fileNameInputHelp">
+                                    aria-describedby="fileNameInputHelp" onchange="Unsave()">
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="versionInput" class="form-label">Versión:</label>
                                 <input type="text" class="form-control" id="versionInput"
-                                    aria-describedby="fileNameInputHelp" placeholder="V1">
+                                    aria-describedby="fileNameInputHelp" placeholder="V1" onchange="Unsave()">
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="statusSelect" class="form-label">Estado:</label>
-                                <select class="form-select" aria-label="statusSelect" id="statusSelect">
+                                <select class="form-select" aria-label="statusSelect" id="statusSelect"
+                                    onchange="Unsave()">
                                     <option value="WIP">En proceso</option>
                                     <option value="en revisión">En revisión</option>
                                     <option value="borrador">Borrador</option>
                                     <option value="terminado">Terminado</option>
                                 </select>
                             </div>
-                            <div class="input-group mb-3">
-                                <label for="thumbnailSelect" class="form-label">Miniatura del proyecto:</label>
-                                <label for="thumbnailSelect"
-                                    class="col-12 btn btn-outline-secondary rounded-pill">Cambiar
-                                    imagen</label>
-                                <input type="file" class="col-12" style="display: none;" id="thumbnailSelect"
-                                    onchange="GetThumbnailFromSelected(event)">
-                            </div>
                             <div class="col-12 mb-3">
-                                <label for="colorPicker" class="form-label">Color del proyecto:</label>
-                                <input type="color" class="col-12 rounded-pill form-control form-control-color"
-                                    id="colorPicker" value="#f06262" onchange="Unsave()">
+                                <label class="mt-2"><strong>Apariencia en el tablero:</strong></label>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="colorPicker" class="form-label">Color:</label>
+                                        <input type="color" class="rounded-pill form-control form-control-color"
+                                            id="colorPicker" value="#f06262" onchange="Unsave()">
+                                    </div>
+                                    <div class="col-9">
+                                        <label for="thumbnailSelect" class="form-label">Miniatura:</label>
+                                        <label for="thumbnailSelect"
+                                            class="col-12 btn btn-outline-secondary rounded-pill">Imagen</label>
+                                        <input type="file" class="col-12" style="display: none;" id="thumbnailSelect"
+                                            onchange="GetThumbnailFromSelected(event)">
+                                    </div>
+                                </div>
                             </div>
                             <div class="d-grid gap-2">
+                                <label class=""><strong>Acciones:</strong></label>
+                                <label class="btn btn-outline-primary" type="button" for="openInput">Importar</label>
+                                <input type="file" style="display: none;" id="openInput" accept=".txt, .fountain"
+                                    onchange="OpenFile(this)">
                                 <button class="btn btn-outline-primary" type="button" onclick="ShareFile()">Guardar como
-                                    archivo</button>
+                                    .ked</button>
                                 <button class="btn btn-primary" type="button"
                                     onclick="SaveFileToLocal('GD')">Guardar</button>
                             </div>
@@ -127,40 +137,42 @@
                             <div class="col-12 mb-3">
                                 <label for="titleInput" class="form-label">Título:</label>
                                 <input type="text" class="form-control" id="titleInput"
-                                    aria-describedby="fileNameInputHelp">
+                                    aria-describedby="fileNameInputHelp" onchange="Unsave()">
                             </div>
                             <div class="col-12 mb-3">
                                 <input class="form-check-input" type="checkbox" id="episodeCheck"
                                     onclick="SavePreferences()">
                                 <label for="episodeInput" class="form-label">Episodio:</label>
                                 <input type="text" class="form-control" id="episodeInput"
-                                    aria-describedby="fileNameInputHelp" placeholder="Episodio #101, T1E01...">
+                                    aria-describedby="fileNameInputHelp" placeholder="Episodio #101, T1E01..."
+                                    onchange="Unsave()">
                             </div>
                             <div class="col-12 mb-3">
                                 <input class="form-check-input" type="checkbox" id="creditCheck"
                                     onclick="SavePreferences()">
                                 <label for="creditInput" class="form-label">Crédito:</label>
                                 <input type="text" class="form-control" id="creditInput"
-                                    aria-describedby="fileNameInputHelp" placeholder="Escrito por:">
+                                    aria-describedby="fileNameInputHelp" placeholder="Escrito por:" onchange="Unsave()">
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="authorInput" class="form-label">Autoría:</label>
-                                <input type="text" class="form-control" id="authorInput"
-                                    aria-describedby="fileNameInputHelp">
+                                <textarea type="text" class="form-control" id="authorInput"
+                                    aria-describedby="fileNameInputHelp" rows="1" onchange="Unsave()"></textarea>
                             </div>
                             <div class="col-12 mb-3">
                                 <input class="form-check-input" type="checkbox" id="sourceCheck"
                                     onclick="SavePreferences()">
                                 <label for="sourceInput" class="form-label">Origen o fuente:</label>
                                 <input type="text" class="form-control" id="sourceInput"
-                                    aria-describedby="fileNameInputHelp" placeholder="Basado en hechos reales">
+                                    aria-describedby="fileNameInputHelp" placeholder="Basado en hechos reales"
+                                    onchange="Unsave()">
                             </div>
                             <div class="col-12 mb-3">
                                 <input class="form-check-input" type="checkbox" id="contactCheck"
                                     onclick="SavePreferences()">
                                 <label for="contactInput" class="form-label">Contacto:</label>
-                                <input type="text" class="form-control" id="contactInput"
-                                    aria-describedby="fileNameInputHelp" placeholder="ejemplo@email.com" multiline>
+                                <textarea type="text" class="form-control" id="contactInput"
+                                    aria-describedby="fileNameInputHelp" rows="1" onchange="Unsave()"></textarea>
                             </div>
                         </div>
                     </div>
