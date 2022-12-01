@@ -9,13 +9,27 @@
     --dialogToMarginLeft: 1in;
 
     --font: "Courier Prime Sans";
+    --boldHeadings: bold;
+    --boldCharacters: bold;
+    --boldTransitions: bold;
+    --sceneNumbers: inline-block;
+    --headingHighlight: var(--backgroundColor);
+    counter-reset: --headings;
 }
 
 [fntype="SCENE_HEADING"] {
-    font-weight: bold;
-    background-color: var(--backgroundColor);
+    font-weight: var(--boldHeadings);
+    position: relative;
+    background-color: var(--headingHighlight);
     margin: 6px -10px -6px -10px;
     padding: 6px 10px 6px 10px;
+}
+
+[fntype="SCENE_HEADING"]::before {
+    display: var(--sceneNumbers);
+    counter-increment: --headings;
+    content: counter(--headings);
+    color: var(--pagebreak-text-color);
 }
 
 [fntype="ACTION"] {
@@ -23,7 +37,7 @@
 }
 
 [fntype="CHARACTER"] {
-    font-weight: bold;
+    font-weight: var(--boldCharacters);
     margin-left: var(--characterToMarginLeft);
 }
 
@@ -37,7 +51,7 @@
 }
 
 [fntype="TRANSITION"] {
-    font-weight: bold;
+    font-weight: var(--boldTransitions);
     text-align: right;
 }
 

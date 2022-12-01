@@ -25,6 +25,11 @@ body {
     background-color: var(--backgroundColor) !important;
 }
 
+[fntype="SCENE_HEADING"]::before {
+    margin-right: 6pt;
+    color: var(--dark);
+}
+
 #headingContainer {
     pointer-events: none;
     display: flex;
@@ -523,7 +528,7 @@ body {
     color: var(--light) !important;
     background-color: #0000 !important;
     border: 1px solid var(--light) !important;
-    border-radius: 100px !important;
+    border-radius: 20px !important;
 }
 
 .form-control::placeholder {
@@ -603,4 +608,16 @@ body {
 
 [fntype="ACTION"] {
     text-align: justify;
+}
+
+.form-select {
+    color: var(--light) !important;
+    background-color: #0000 !important;
+    border: 1px solid var(--light) !important;
+    border-radius: 20px !important;
+}
+
+option {
+    color: var(--light) !important;
+    background-color: var(--dark) !important;
 }
