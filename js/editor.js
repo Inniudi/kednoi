@@ -2,7 +2,7 @@ let inputElement = document.getElementById("input");
 let inputContainer = inputElement.parentElement;
 let menu = document.getElementById("burgerMenu");
 let isFullScreen = false;
-let fileName = "Guion sin título";
+let fileName;
 let htmlOutput = inputElement;
 
 let editorPatterns = [
@@ -186,7 +186,7 @@ function Start()
         let loadedFileName = openedKed.fileSaveName;
         let newName = loadedFileName;
 
-        if (localStorage.getItem(`SaveF${loadedFileName}`))
+        while (localStorage.getItem(`SaveF${newName}`) || newName === null)
         {
             newName = prompt(`¡Ojo! Ya tienes un proyecto con el nombre de archivo "${loadedFileName}". Escribe algo diferente abajo para abrir este archivo con otro nombre o déjalo como está si prefieres sobreescribirlo.`, loadedFileName);
         }
@@ -210,11 +210,12 @@ function Start()
 
         SetVersionsList();
         sessionStorage.removeItem("openedKed");
+        Unsave();
     }
     else
     {
-        fileNameText.textContent = fileName;
-        fileNameInput.value = fileName;
+        fileNameText.textContent = fileName || "Guion sin título";
+        fileNameInput.value = fileName || "Guion sin título";
     }
     Observe();
     CountPages();
@@ -223,16 +224,16 @@ function Start()
 function CheckNode(n)
 {
     let node = n;
+
     while (node.parentElement !== inputElement) node = node.parentElement;
 
     if (node.getAttribute("autoformat") === "false") return;
 
     let contentToCheck = node.innerText.replaceAll(`<br>`, `\n`);
 
-    let prevType = node.previousSibling ? node.previousSibling.getAttribute("fntype") : null;
+    let prevType = node.previousSibling && node.previousSibling.nodeType !== 3 ? node.previousSibling.getAttribute("fntype") : null;
     if (!/^\(.*/m.test(contentToCheck) && (prevType === "CHARACTER" || prevType === "PARENTHETICAL"))
     {
-        console.log("js");
         node.setAttribute("fntype", "DIALOG");
     }
     else

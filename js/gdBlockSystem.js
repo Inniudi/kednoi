@@ -300,7 +300,7 @@ function Start()
         thumbnailFile = loadedProject.thumbnail;
 
         versionInput.value = loadedVersion.versionId;
-        inputElement.innerHTML = loadedVersion.htmlSave;
+        htmlOutput.innerHTML = loadedVersion.htmlSave;
         statusSelect.value = loadedVersion.versionStatus;
 
         LoadScriptData();

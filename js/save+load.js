@@ -38,6 +38,7 @@ function GetThumbnailFromSelected(event)
 
 function SaveFileToLocal(type, importSaveDate)
 {
+    console.log(fileName);
     if (saved) return;
 
     importSaveDate = importSaveDate || false;
@@ -50,6 +51,14 @@ function SaveFileToLocal(type, importSaveDate)
     //Project data
     if (fileNameInput.value.trim() != fileName)
     {
+        if (fileName === undefined || fileName.trim() === "")
+        {
+            fileNameInput.value = prompt(`¿Con qué nombre quieres guardar este archivo?`);
+            fileName = fileNameInput.value.trim();
+            fileNameText.textContent = fileName;
+            fileNameInput.value = fileName;
+            loadedProject.fileSaveName = fileName;
+        }
         while (fileNameInput.value.trim() === "")
         {
             fileNameInput.value = prompt(`Oye, que no se pueden guardar proyectos sin nombre. Ponle alguno, porfa, aunque sea \'jhsjhd\'`);
@@ -159,8 +168,8 @@ function Load()
 function LoadFileFromLocal()
 {
     Load();
-    fileNameText.textContent = fileName;
-    fileNameInput.value = fileName;
+    fileNameText.textContent = fileName || "Guion sin título";
+    fileNameInput.value = fileName || "Guion sin título";
     colorPicker.value = loadedProject.color;
     thumbnailFile = loadedProject.thumbnail;
 

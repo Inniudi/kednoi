@@ -1,38 +1,50 @@
 fileCardTemplate = document.getElementById("fileCardTemplate");
 cardContainer = document.getElementById("cardContainer");
 
+let saveFiles = [];
+
 for (var i = 0, len = localStorage.length; i < len; ++i)
 {
     if (localStorage.key(i).startsWith("SaveF") && localStorage.key(i).length > 5)
     {
         let projectObj = new SaveFile();
         Object.assign(projectObj, JSON.parse(localStorage.getItem(localStorage.key(i))));
-        let currentVersion = new Version();
-        Object.assign(currentVersion, projectObj.GetVersionByID(projectObj.lastVersionId));
-
-        let newCard = fileCardTemplate.cloneNode(true);
-
-        newCard.setAttribute("fileName", projectObj.fileSaveName);
-        newCard.setAttribute("version", currentVersion.versionId);
-        newCard.setAttribute("fileType", projectObj.type === "screenplay" ? "SP" : projectObj.type);
-
-        console.log(projectObj.fileSaveName);
-        newCard.querySelector(".cardTitle").childNodes[0].textContent = projectObj.fileSaveName;
-        newCard.querySelector(".cardDecor").style = "background-color: " + projectObj.color;
-        newCard.querySelector(".cardLastMod").textContent = "Últ. mod. " + GetLastModified(Date.now() - currentVersion.versionLastMod);
-        newCard.querySelector(".cardLastMod").textContent += " - " + Math.trunc(localStorage.getItem(localStorage.key(i)).toString().length / 1024) + "kb";
-        newCard.querySelector(".statusBadge").textContent = currentVersion.versionStatus || "-";
-        newCard.querySelector(".statusBadge").setAttribute("status", currentVersion.versionStatus);
-        newCard.querySelector(".versionBadge").textContent = currentVersion.versionId || "-";
-        newCard.querySelector(".cardImage").style.backgroundImage = "url(" + (projectObj.thumbnail) + ")";
-
-        cardContainer.appendChild(newCard);
-
-        newCard.style.visibility = "visible";
-        newCard.removeAttribute("hidden");
-        newCard.setAttribute("aria-hidden", "false");
+        saveFiles.push(projectObj);
     }
-    else continue;
+    else
+    {
+        continue;
+    }
+}
+
+saveFiles.sort(function (a, b) { return b.GetVersionByID(b.lastVersionId).versionLastMod - a.GetVersionByID(a.lastVersionId).versionLastMod; });
+
+for (var i = 0, len = saveFiles.length; i < len; ++i)
+{
+    let projectObj = saveFiles[i];
+    let currentVersion = new Version();
+    Object.assign(currentVersion, projectObj.GetVersionByID(projectObj.lastVersionId));
+
+    let newCard = fileCardTemplate.cloneNode(true);
+
+    newCard.setAttribute("fileName", projectObj.fileSaveName);
+    newCard.setAttribute("version", currentVersion.versionId);
+    newCard.setAttribute("fileType", projectObj.type === "screenplay" ? "SP" : projectObj.type);
+
+    newCard.querySelector(".cardTitle").childNodes[0].textContent = projectObj.fileSaveName;
+    newCard.querySelector(".cardDecor").style = "background-color: " + projectObj.color;
+    newCard.querySelector(".cardLastMod").textContent = "Últ. mod. " + GetLastModified(Date.now() - currentVersion.versionLastMod);
+    newCard.querySelector(".cardLastMod").textContent += " - " + Math.trunc(localStorage.getItem(localStorage.key(i)).toString().length / 1024) + "kb";
+    newCard.querySelector(".statusBadge").textContent = currentVersion.versionStatus || "-";
+    newCard.querySelector(".statusBadge").setAttribute("status", currentVersion.versionStatus);
+    newCard.querySelector(".versionBadge").textContent = currentVersion.versionId || "-";
+    newCard.querySelector(".cardImage").style.backgroundImage = "url(" + (projectObj.thumbnail) + ")";
+
+    cardContainer.appendChild(newCard);
+
+    newCard.style.visibility = "visible";
+    newCard.removeAttribute("hidden");
+    newCard.setAttribute("aria-hidden", "false");
 }
 
 function GetLastModified(miliseconds)
@@ -72,8 +84,16 @@ function OpenKedProject(input)
     reader.addEventListener('load', function (e)
     {
         sessionStorage.setItem("openedKed", e.target.result);
-        console.log("opened");
-        GoToNewFileEditor();
+        switch (JSON.parse(e.target.result).type)
+        {
+            case "SP":
+                GoToNewSPEditor();
+                break;
+
+            case "GD":
+                GoToNewGDEditor();
+                break;
+        }
     });
     reader.readAsText(input.files[0]);
 }

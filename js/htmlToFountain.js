@@ -328,7 +328,18 @@ function ConvertToFountainTitlePage()
         if (titleInput.value.length > 0) titlePageLines.push(`Title: ${titleInput.value}`);
         if (episodeCheck.checked) titlePageLines.push(`Episode: ${episodeInput.value}`);
         if (creditCheck.checked) titlePageLines.push(`Credit: ${creditInput.value}`);
-        if (authorInput.value.length > 0) titlePageLines.push(`Author: ${authorInput.value}`);
+        if (authorInput.value.length > 0)
+        {
+            if (/(?:(?:.+)\n)+(?:.+)/.test(authorInput.value.trim()))
+            {
+                data = authorInput.value.trim().replace(/(?:.+)/g, `\t$&`);
+                titlePageLines.push(`Author:\n${data}`);
+            }
+            else
+            {
+                titlePageLines.push(`Author: ${authorInput.value.trim()}`);
+            }
+        }
         if (sourceCheck.checked) titlePageLines.push(`Source: ${sourceInput.value}`);
         if ((exportVersion.checked && versionInput.value.length > 0) || exportDate.checked)
         {
@@ -340,8 +351,18 @@ function ConvertToFountainTitlePage()
                 titlePageLines.push(`    ${dateLastMod.getDate()}/${dateLastMod.getMonth() + 1}/${dateLastMod.getFullYear()}`);
             }
         }
-        if (contactCheck.checked) titlePageLines.push(`Contact: ${contactInput.value}`);
-
+        if (contactCheck.checked)
+        {
+            if (/(?:(?:.+)\n)+(?:.+)/.test(contactInput.value.trim()))
+            {
+                data = contactInput.value.trim().replace(/(?:.+)/g, `\t$&`);
+                titlePageLines.push(`Contact:\n${data}`);
+            }
+            else
+            {
+                titlePageLines.push(`Contact: ${authorInput.value.trim()}`);
+            }
+        }
         if (titlePageLines.length > 0) titlePageLines.push("\n\n");
     }
 

@@ -51,7 +51,7 @@ class ScriptData
 
 class UserPrefs
 {
-    constructor(aSave, iTitlePage, iVersionId, iVersionDate, theme, sansEnabled, boldHeadings, boldCharacters, boldTransitions, headingHighlight, sceneNumbers, sceneNsLeft, sceneNsRight, exportBoneyards)
+    constructor(aSave, iTitlePage, iVersionId, iVersionDate, theme, sansEnabled, boldHeadings, boldCharacters, boldTransitions, headingHighlight, sceneNumbers, sceneNsLeft, sceneNsRight, exportBoneyards, paperTexEnabled)
     {
         this.autoSaveEnabled = aSave;
         this.includeTitlePage = iTitlePage;
@@ -67,5 +67,6 @@ class UserPrefs
         this.sceneNsLeft = sceneNsLeft;
         this.sceneNsRight = sceneNsRight;
         this.exportBoneyards = exportBoneyards;
+        this.paperTexEnabled = paperTexEnabled;
     }
 }

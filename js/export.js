@@ -49,7 +49,7 @@ let maxWidths = {
     "EMPTY": 6
 };
 
-let margins = {
+let marginsLetter = {
     "SCENE_HEADING": 1.5,
     "ACTION": 1.5,
     "CHARACTER": 3.7,
@@ -60,15 +60,28 @@ let margins = {
     "EMPTY": 1.5
 };
 
-function exportPDF()
+let marginsA4 = {
+    "SCENE_HEADING": 1.35,
+    "ACTION": 1.35,
+    "CHARACTER": 3.55,
+    "PARENTHETICAL": 2.95,
+    "DIALOG": 2.35,
+    "TRANSITION": 7.35,
+    "CENTERED": 4.05,
+    "EMPTY": 1.35
+};
+
+function exportPDF(mode)
 {
+    console.log(loadedScriptData.author);
     if (!confirm("¡Un momentito! Aún no se ha conseguido que las palabras en negrita, cursiva o subrayadas aparezcan en los PDF, pero todo lo demás debería estar en su sitio... Si esto es importante para tu guion, puedes exportarlo a .fountain y convertirlo a PDF en otras herramientas gratuitas online como afterwriting.com")) return;
     window.jsPDF = window.jspdf.jsPDF;
+    let margins = mode === "letter" ? marginsLetter : marginsA4;
 
     const doc = new jsPDF({
         orientation: "p",
         unit: "in",
-        format: "letter",
+        format: mode,
         lineHeight: 1
     });
 
@@ -279,7 +292,7 @@ function exportPDF()
                     currentSecTwo = doc.outline.add(currentSecOne || null, block.textContent.replace('##', ''), { pageNumber: currentPage + 1 });
                     break;
                 case "SECTION 3":
-                    currentSecTwo = doc.outline.add(currentSecTwo || null, block.textContent.replace('###', ''), { pageNumber: currentPage + 1 });
+                    currentSecThree = doc.outline.add(currentSecTwo || null, block.textContent.replace('###', ''), { pageNumber: currentPage + 1 });
                     break;
                 case "BONEYARD":
                     if (exportBoneyards.checked) doc.createAnnotation({ type: "text", title: "/*", bounds: { x: 0.5, y: currentHeight - (1 / 72 * 18), w: 0.2, h: 0.2 }, contents: `${block.textContent.replace(/\/\*(.*)(?:\*\/)?/, `$1`)}`, open: false });
