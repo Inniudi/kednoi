@@ -310,7 +310,7 @@ async function Start()
     }
     else if (sessionStorage.getItem("launchQueue"))
     {
-        let launchParams = sessionStorage.getItem("launchQueue");
+        let launchParams = JSON.parse(sessionStorage.getItem("launchQueue"));
         let file = await launchParams.files[0].getFile();
         file.handle = launchParams.files[0];
         if (/.*\.ked$/i.test(file.name))
