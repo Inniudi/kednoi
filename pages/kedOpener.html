@@ -17,7 +17,8 @@
             {
                 if (launchParams.files.length)
                 {
-                    let file = launchParams.files[0];
+                    let file = await launchParams.files[0].getFile();
+                    file.handle = launchParams.files[0];
                     let reader = new FileReader();
                     reader.addEventListener('load', function (e)
                     {
