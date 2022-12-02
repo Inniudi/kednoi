@@ -163,7 +163,7 @@ inputElement.addEventListener('keyup', e =>
 
 window.onload = Start();
 
-function Start()
+async function Start()
 {
     if (localStorage.getItem("UserPrefs"))
     {
@@ -215,7 +215,7 @@ function Start()
     else if (sessionStorage.getItem("launchQueue"))
     {
         let launchParams = sessionStorage.getItem("launchQueue");
-        let file = launchParams.files[0].getFile();
+        let file = await launchParams.files[0].getFile();
         file.handle = launchParams.files[0];
         if (/.*\.ked$/i.test(file.name))
         {
