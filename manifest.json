@@ -38,7 +38,7 @@
             ]
         },
         {
-            "action": "pages/kedOpener.html",
+            "action": "pages/kedOpenee.html",
             "accept": {
                 "text/plain": [
                     ".ked"
