@@ -311,7 +311,8 @@ function Start()
     else if (sessionStorage.getItem("launchQueue"))
     {
         let launchParams = sessionStorage.getItem("launchQueue");
-        let file = launchParams.files[0];
+        let file = launchParams.files[0].getFile();
+        file.handle = launchParams.files[0];
         if (/.*\.ked$/i.test(file.name))
         {
             let loadedFileName = file.name.replace(/(.*)\.ked$/i, `$1`);
