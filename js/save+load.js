@@ -43,13 +43,23 @@ function SaveFileToLocal(type, importSaveDate)
 
     importSaveDate = importSaveDate || false;
 
-    if (loadedProject.fileSaveName === null && fileNameInput.value.trim() === "")
+    if (loadedProject.fileSaveName === null)
     {
-        fileNameInput.value = prompt(`¿Con qué nombre quieres guardar este archivo?`);
+        if (fileNameInput.value.trim() === "")
+        {
+            fileNameInput.value = prompt(`¿Con qué nombre quieres guardar este archivo?`);
+        }
+        while (localStorage.getItem("SaveF" + fileNameInput.value.trim()))
+        {
+            fileNameInput.value = prompt(`Ya existe un proyecto con este nombre, elige uno diferente.`);
+        }
+        fileName = fileNameInput.value;
+        loadedProject.fileSaveName = fileName;
+        fileNameText.textContent = fileName;
     }
 
     //Project data
-    if (fileNameInput.value.trim() != fileName)
+    else if (fileNameInput.value.trim() != fileName)
     {
         if (fileName === undefined || fileName.trim() === "")
         {
@@ -203,51 +213,4 @@ function Unsave()
         savedIcon.classList.add("not-saved");
         saved = false;
     }
-}
-
-if ("launchQueue" in window)
-{
-    launchQueue.setConsumer(async launchParams =>
-    {
-        if (launchParams.files.length)
-        {
-            let file = launchParams.files[0];
-            if (/.*\.ked$/i.test(file.name))
-            {
-                let loadedFileName = file.name.replace(/(.*)\.ked$/i, `$1`);
-                let newName = loadedFileName;
-                if (localStorage.getItem(`SaveF${loadedFileName}`))
-                {
-                    newName = prompt(`¡Ojo! Ya tienes un proyecto con el nombre de archivo "${loadedFileName}". Escribe algo diferente abajo para abrir este archivo con otro nombre o déjalo como está si prefieres sobreescribirlo.`, loadedFileName);
-                }
-                let reader = new FileReader();
-                reader.addEventListener('load', function (e)
-                {
-                    Object.assign(loadedProject, JSON.parse(e.target.result));
-                    Object.assign(loadedVersion, loadedProject.GetVersionByID(loadedProject.lastVersionId));
-                    Object.assign(loadedScriptData, loadedProject.scriptData);
-
-                    fileName = newName;
-                    loadedProject.fileSaveName = fileName;
-                    fileNameText.textContent = fileName;
-                    fileNameInput.value = fileName;
-                    colorPicker.value = loadedProject.color;
-                    thumbnailFile = loadedProject.thumbnail;
-
-                    versionInput.value = loadedVersion.versionId;
-                    inputElement.innerHTML = loadedVersion.htmlSave;
-                    statusSelect.value = loadedVersion.versionStatus;
-
-                    LoadScriptData();
-
-                    SetVersionsList();
-                });
-                reader.readAsText(file);
-            }
-            else if (/.*\.fountain$/i.test(file.name))
-            {
-                OpenFile(launchParams);
-            }
-        }
-    });
 }

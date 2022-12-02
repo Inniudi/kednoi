@@ -308,6 +308,48 @@ function Start()
         SetVersionsList();
         sessionStorage.removeItem("openedKed");
     }
+    else if (sessionStorage.getItem("launchQueue"))
+    {
+        let launchParams = sessionStorage.getItem("launchQueue");
+        let file = launchParams.files[0];
+        if (/.*\.ked$/i.test(file.name))
+        {
+            let loadedFileName = file.name.replace(/(.*)\.ked$/i, `$1`);
+            let newName = loadedFileName;
+            if (localStorage.getItem(`SaveF${loadedFileName}`))
+            {
+                newName = prompt(`¡Ojo! Ya tienes un proyecto con el nombre de archivo "${loadedFileName}". Escribe algo diferente abajo para abrir este archivo con otro nombre o déjalo como está si prefieres sobreescribirlo.`, loadedFileName);
+            }
+            let reader = new FileReader();
+            reader.addEventListener('load', function (e)
+            {
+                Object.assign(loadedProject, JSON.parse(e.target.result));
+                Object.assign(loadedVersion, loadedProject.GetVersionByID(loadedProject.lastVersionId));
+                Object.assign(loadedScriptData, loadedProject.scriptData);
+
+                fileName = newName;
+                loadedProject.fileSaveName = fileName;
+                fileNameText.textContent = fileName;
+                fileNameInput.value = fileName;
+                colorPicker.value = loadedProject.color;
+                thumbnailFile = loadedProject.thumbnail;
+
+                versionInput.value = loadedVersion.versionId;
+                htmlOutput.innerHTML = loadedVersion.htmlSave;
+                statusSelect.value = loadedVersion.versionStatus;
+
+                LoadScriptData();
+
+                SetVersionsList();
+            });
+            reader.readAsText(file);
+        }
+        else if (/.*\.fountain$/i.test(file.name))
+        {
+            OpenFile(launchParams);
+        }
+        sessionStorage.removeItem("launchQueue");
+    }
     else
     {
         fileNameText.textContent = fileName;
