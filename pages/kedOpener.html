@@ -27,11 +27,11 @@
                         switch (JSON.parse(e.target.result).type)
                         {
                             case "SP":
-                                GoToNewSPEditor();
+                                window.location.href = "editor-SP.html";
                                 break;
 
                             case "GD":
-                                GoToNewGDEditor();
+                                window.location.href = "editor-GD.html";
                                 break;
                         }
                     });
