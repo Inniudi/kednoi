@@ -23,7 +23,7 @@
                     let reader = new FileReader();
                     reader.addEventListener('load', function (e)
                     {
-                        sessionStorage.setItem("launchQueue", launchParams);
+                        sessionStorage.setItem("launchQueue", JSON.stringify(launchParams));
                         switch (JSON.parse(e.target.result).type)
                         {
                             case "SP":
