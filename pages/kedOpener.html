@@ -18,12 +18,12 @@
             {
                 if (launchParams.files.length)
                 {
+                    sessionStorage.setItem("launchQueue", JSON.stringify(launchParams));
                     let file = await launchParams.files[0].getFile();
                     file.handle = launchParams.files[0];
                     let reader = new FileReader();
                     reader.addEventListener('load', function (e)
                     {
-                        sessionStorage.setItem("launchQueue", JSON.stringify(launchParams));
                         switch (JSON.parse(e.target.result).type)
                         {
                             case "SP":
