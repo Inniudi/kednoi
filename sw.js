@@ -7,6 +7,7 @@ var URLS = [
     `${GHPATH}/pages/editor-SP.html`,
     `${GHPATH}/pages/editor-GD.html`,
     `${GHPATH}/pages/credits.html`,
+    `${GHPATH}/pages/kedOpener.html`,
     //CSS
     `${GHPATH}/css/blocks.css`,
     `${GHPATH}/css/dashboard.css`,
