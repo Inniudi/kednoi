@@ -23,7 +23,7 @@
     ],
     "file_handlers": [
         {
-            "action": "pages/editor-SW.html",
+            "action": "pages/kedOpener.html",
             "accept": {
                 "text/plain": [
                     ".fountain"
