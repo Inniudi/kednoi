@@ -26,21 +26,6 @@
             "action": "pages/kedOpener.html",
             "accept": {
                 "text/plain": [
-                    ".fountain"
-                ]
-            },
-            "icons": [
-                {
-                    "src": "src/fountain_icon512.png",
-                    "sizes": "512x512",
-                    "type": "image/png"
-                }
-            ]
-        },
-        {
-            "action": "pages/kedOpener.html",
-            "accept": {
-                "text/plain": [
                     ".ked"
                 ]
             },
