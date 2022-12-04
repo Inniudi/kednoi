@@ -1,4 +1,5 @@
 # Kednoi
+![kednoi logo](/src/logo.svg)
 Version 2.09alpha
 
 **A scriptwriting app for the web made in HTML, CSS and JS**
