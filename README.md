@@ -1,5 +1,5 @@
+![KEDNOI](src/logo.svg)
 <br>Version 2.09alpha
-![](src/logo.svg)
 
 **A scriptwriting app for the web made in HTML, CSS and JS**
 
