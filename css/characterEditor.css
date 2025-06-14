@@ -1,0 +1,160 @@
+#characterScrollBox {
+    background-color: var(--paperColor);
+    margin-left: var(--leftSpace);
+    height: 100vh;
+    width: calc(var(--paperWidth) + 14px) !important;
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
+    position: absolute;
+    top: 0;
+    padding: calc(var(--paperMarginLeft) * 0.6);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, calc(30vh + 24px));
+}
+
+#characterScrollBox::before {
+    width: var(--paperWidth) !important;
+    height: 100vh;
+    content: "";
+    position: fixed;
+    z-index: -1;
+}
+
+#characterScrollBox .addBttn {
+    align-self: center;
+    justify-self: center;
+}
+
+#characterScrollBox>.addBttnContainer {
+    display: grid;
+    border-style: dashed;
+    border-color: var(--standard-color);
+    border-radius: 25px;
+}
+
+#characterScrollBox>div {
+    margin: 12px;
+    height: 30vh;
+}
+
+.characterCard {
+    background-color: var(--cardColor);
+    border-radius: 10px;
+    color: var(--dark);
+    caret-color: var(--primary);
+    background-color: var(--cardColor);
+    overflow: hidden;
+    height: 30vh;
+}
+
+.charMainInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.charName,
+.charAge {
+    display: inline-block;
+    line-height: 1;
+    font-family: 'Lexend';
+    margin-left: 3px;
+    font-variation-settings: 'wght' 500;
+    margin-left: 10px;
+    outline: none;
+}
+
+.charAge {
+    font-variation-settings: 'wght' 300;
+}
+
+.charProfile {
+    height: 50%;
+    width: 100%;
+    background-image: url(../src/profPhotoPreview.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 0;
+    padding: 8px;
+}
+
+.charDescription {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    height: 30%;
+    overflow: overlay;
+}
+
+.charDialogPercent {
+    width: 100%;
+    margin: 10px;
+    margin-top: 2px;
+    color: var(--section1-color);
+    font-size: smaller;
+}
+
+.addCharBttn {
+    background-color: var(--primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.addCharBttnIcon {
+    background: url(../src/ToolIcons/add.svg);
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+}
+
+.changePhoto {
+    background-image: url(../src/MinorIcons/profPhoto.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    visibility: hidden;
+    transition: 0.1s;
+}
+
+.changePhoto:hover {
+    scale: 1.1;
+}
+
+.charProfile:hover>.changePhoto {
+    visibility: visible;
+}
+
+.charDeleteBttn {
+    background: url(../src/MinorIcons/cross.svg);
+    background-size: contain;
+    border: none;
+    width: 20px;
+    height: 20px;
+    justify-self: end;
+    margin: 8px;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.characterCard:hover .charDeleteBttn {
+    opacity: 1;
+}
+
+#suggestion {
+    top: 0;
+    left: 0;
+    position: absolute;
+    background: var(--standard-color);
+    border-radius: 15px;
+    z-index: 1000;
+    max-width: 200px;
+    padding: 6px;
+    font-family: "Courier Prime Sans";
+}

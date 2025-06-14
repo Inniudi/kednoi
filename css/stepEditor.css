@@ -1,0 +1,166 @@
+:root {
+    counter-reset: --steps;
+}
+
+#stepScrollBox {
+    margin-left: var(--leftSpace);
+    height: 100vh;
+    width: calc(var(--paperWidth) + 14px) !important;
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
+    position: absolute;
+    top: 0;
+    padding: calc(var(--paperMarginLeft) * 0.6);
+    background-color: var(--paperColor);
+}
+
+#stepScrollBox::before {
+    width: var(--paperWidth) !important;
+    height: 100vh;
+    display: block;
+    content: "";
+    position: fixed;
+    z-index: -1;
+}
+
+.stepContainer {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-radius: 10px;
+
+    margin: 12px;
+    padding-left: 20px;
+
+    font-family: 'Lexend';
+    line-height: 12pt;
+    font-size: 12pt;
+
+    color: var(--dark);
+    caret-color: var(--primary);
+    background-color: var(--cardColor);
+
+    margin-left: 30px;
+}
+
+.stepContainer::before {
+    counter-increment: --steps;
+    content: counter(--steps);
+    color: var(--boneyard-color);
+    position: absolute;
+    left: -36px;
+    top: 25%;
+    vertical-align: bottom;
+    text-align: right;
+    width: 24pt;
+}
+
+.stepSidebar {
+    display: inline-block;
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 20px;
+    height: 100%;
+
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    background-color: var(--grey);
+}
+
+.stepContent {
+    display: inline-block;
+    padding: 10px;
+}
+
+.stepSign {
+    display: inline-block;
+    background-image: url("../src/MinorIcons/positive.svg");
+    height: 16px;
+    width: 16px;
+    background-size: contain;
+    vertical-align: middle;
+    margin: 10px;
+}
+
+.stepText {
+    display: inline-block;
+    vertical-align: middle;
+    outline: none;
+    font-variation-settings: 'wght' 350;
+    width: calc(100% - 70px);
+    margin: 10px;
+    margin-left: 0;
+    text-align: justify;
+}
+
+.stepDeleteBttn {
+    background: url(../src/MinorIcons/cross.svg);
+    background-size: contain;
+    border: none;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 8px;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.stepContainer:hover>.stepDeleteBttn {
+    opacity: 1;
+}
+
+.addBttn {
+    background-color: var(--primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.addBttnIcon {
+    background: url(../src/ToolIcons/add.svg);
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+}
+
+.drop-target {
+    border-top: 4px dashed var(--primary);
+    height: 4px;
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+
+    transition: 0.2s;
+}
+
+.drop-target[side="top"] {
+    top: -10px;
+}
+
+.drop-target[side="bottom"] {
+    bottom: -10px;
+}
+
+.drag-over {
+    opacity: 1;
+}
+
+.stepContent {
+    display: inline-block;
+    padding: 10px;
+}
