@@ -93,6 +93,10 @@ function OpenKedProject(input)
             case "GD":
                 GoToNewGDEditor();
                 break;
+
+            case "CO":
+                GoToNewCOEditor();
+                break;
         }
     });
     reader.readAsText(input.files[0]);

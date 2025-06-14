@@ -11,6 +11,12 @@ function GoToNewSPEditor()
     window.location.href = "pages/editor-SP.html";
 }
 
+function GoToNewCOEditor()
+{
+    sessionStorage.removeItem("currentSelectedFile");
+    window.location.href = "pages/editor-CO.html";
+}
+
 function GoToNewGDEditor()
 {
     sessionStorage.removeItem("currentSelectedFile");

@@ -23,12 +23,14 @@ class SaveFile
 
 class Version
 {
-    constructor(id, vSt, vLM, vHtmlSave)
+    constructor(id, vSt, vLM, vHtmlSave, charactersH, stepHtml)
     {
         this.versionId = id || "V1";
         this.versionStatus = vSt || ProjectStatus.WIP;
         this.versionLastMod = vLM;
         this.htmlSave = vHtmlSave;
+        this.charactersHtml = charactersH;
+        this.stepHtml = stepHtml;
     }
 }
 
@@ -68,5 +70,17 @@ class UserPrefs
         this.sceneNsRight = sceneNsRight;
         this.exportBoneyards = exportBoneyards;
         this.paperTexEnabled = paperTexEnabled;
+    }
+}
+
+class Character
+{
+    constructor(name, age)
+    {
+        this.name = name;
+        this.age = age;
+        this.profile;
+        this.description;
+        this.dialogPercent;
     }
 }

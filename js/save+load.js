@@ -63,7 +63,9 @@ function SaveFileToLocal(type, importSaveDate)
     {
         if (fileName === undefined || fileName.trim() === "")
         {
-            fileNameInput.value = prompt(`¿Con qué nombre quieres guardar este archivo?`);
+            let prompt = prompt(`¿Con qué nombre quieres guardar este archivo?`);
+            if (prompt === null) return;
+            else fileNameInput.value = prompt;
             fileName = fileNameInput.value.trim();
             fileNameText.textContent = fileName;
             fileNameInput.value = fileName;
@@ -93,6 +95,8 @@ function SaveFileToLocal(type, importSaveDate)
     else index = loadedProject.versions.indexOf(loadedProject.versions.find(x => x.versionId === loadedVersion.versionId));
     loadedProject.versions[index].versionLastMod = importSaveDate || Date.now().toString();
     loadedProject.versions[index].htmlSave = htmlOutput.innerHTML;
+    loadedProject.versions[index].charactersHtml = characterTab.innerHTML;
+    loadedProject.versions[index].stepHtml = stepTab.innerHTML;
     if (loadedProject.versions[index].versionId != versionInput.value.trim())
     {
         if (loadedProject.versions.find(x => x.versionId === versionInput.value.trim())) { alert(`¡Ya existe una versión identifacada como \"${versionInput.value.trim()}\"! Elige otro identificador distinto.`); return; }
@@ -186,6 +190,9 @@ function LoadFileFromLocal()
     versionInput.value = loadedVersion.versionId;
     htmlOutput.innerHTML = loadedVersion.htmlSave;
     statusSelect.value = loadedVersion.versionStatus;
+
+    characterTab.innerHTML = loadedVersion.charactersHtml || characterTab.innerHTML;
+    stepTab.innerHTML = loadedVersion.stepHtml || stepTab.innerHTML;
 
     LoadScriptData();
 

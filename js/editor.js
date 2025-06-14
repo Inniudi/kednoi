@@ -73,6 +73,15 @@ let observer = new MutationObserver(function (mutations)
     }
 });
 
+window.addEventListener('keydown', e =>
+{
+    if (e.code === "KeyS" && e.ctrlKey)
+    {
+        e.preventDefault();
+        SaveFileToLocal("SP");
+    }
+});
+
 inputElement.addEventListener('input', () =>
 {
     CheckNode(window.getSelection().anchorNode);
@@ -147,17 +156,142 @@ inputElement.addEventListener('keyup', e =>
     else if (e.code === "Tab")
     {
         e.preventDefault();
-        let node = window.getSelection().anchorNode;
+        const selection = window.getSelection();
+        let textNode = selection.anchorNode;
+        let node = selection.anchorNode;
         while (node.parentElement !== inputElement) node = node.parentElement;
         let type = (node.getAttribute("fntype") === "EMPTY" || node.getAttribute("fntype") === "CENTERED") ? "ACTION" : node.getAttribute("fntype");
-        let prevType = (node.previousSibling.getAttribute("fntype") === "EMPTY" || node.previousSibling.getAttribute("fntype") === "CENTERED") ? "ACTION" : node.previousSibling.getAttribute("fntype");
-
-        if (prevType !== "CHARACTER" && prevType !== "PARENTHETICAL")
+        let prevType;
+        if (node.previousSibling.nodeType !== Node.TEXT_NODE)
         {
-            node.setAttribute("autoformat", "false");
-            node.setAttribute("fntype", type === "ACTION" ? "CHARACTER" : "ACTION");
+            prevType = (node.previousSibling.getAttribute("fntype") === "EMPTY" || node.previousSibling.getAttribute("fntype") === "CENTERED") ? "ACTION" : node.previousSibling.getAttribute("fntype");
         }
+        if (suggestion.textContent !== "")
+        {
+            if (type === "CHARACTER")
+            {
+                textNode.textContent = suggestion.textContent.toUpperCase();
 
+                const newPos = suggestion.textContent.length;
+                const newRange = document.createRange();
+                newRange.setStart(textNode, newPos);
+                newRange.setEnd(textNode, newPos);
+
+                selection.removeAllRanges();
+                selection.addRange(newRange);
+
+                suggestion.style.visibility = 'hidden';
+            }
+            else
+            {
+                InsertCharacterMention();
+            }
+        }
+        else
+        {
+            if (prevType !== "CHARACTER" && prevType !== "PARENTHETICAL")
+            {
+                node.setAttribute("autoformat", "false");
+                node.setAttribute("fntype", type === "ACTION" ? "CHARACTER" : "ACTION");
+            }
+        }
+    }
+});
+
+function InsertCharacterMention()
+{
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const n = selection.anchorNode;
+
+    if (!n || n.nodeType !== Node.TEXT_NODE) return;
+
+    const text = n.textContent;
+    const cursorPos = selection.anchorOffset;
+    const textBeforeCursor = text.slice(0, cursorPos);
+    const match = textBeforeCursor.match(/@(\w*)$/);
+
+    if (match)
+    {
+        const start = match.index;
+        const end = cursorPos;
+
+        // Replace the @mention text with the full username
+        const before = text.slice(0, start);
+        const after = text.slice(end);
+        const newText = before + suggestion.textContent + " " + after;
+
+        n.textContent = newText;
+
+        // Move cursor to after the inserted mention
+        const newPos = before.length + suggestion.textContent.length + 1; // +1 for space
+        const newRange = document.createRange();
+        newRange.setStart(n, newPos);
+        newRange.setEnd(n, newPos);
+
+        selection.removeAllRanges();
+        selection.addRange(newRange);
+    }
+    suggestion.style.visibility = 'hidden';
+}
+
+inputElement.addEventListener('keyup', e =>
+{
+    suggestion.innerHTML = "";
+
+    const selection = window.getSelection();
+    let node = selection.anchorNode;
+    const range = selection.getRangeAt(0).cloneRange();
+
+    if (!node || node.nodeType !== Node.TEXT_NODE) return;
+
+    const text = node.textContent;
+    const cursorPos = selection.anchorOffset;
+    const textBeforeCursor = text.slice(0, cursorPos);
+
+    // Check if there's a word starting with @ just before the cursor
+    const match = textBeforeCursor.match(/@(\w*)$/);
+    while (node.parentElement !== inputElement) node = node.parentElement;
+    let type = (node.getAttribute("fntype") === "EMPTY" || node.getAttribute("fntype") === "CENTERED") ? "ACTION" : node.getAttribute("fntype");
+    if (match && type != "CHARACTER")
+    {
+        const query = match[1]; // This is the text after the "@"
+        let regEx = new RegExp("^" + query, "i");
+        for (let i in characters)
+        {
+            if (regEx.test(characters[i].name) && inputElement.value != "")
+            {
+                suggestion.style.visibility = "visible";
+                suggestion.innerHTML = characters[i].name;
+
+                suggestion.style.position = 'absolute';
+                suggestion.style.left = `${range.getBoundingClientRect().left + window.scrollX}px`;
+                suggestion.style.top = `${range.getBoundingClientRect().bottom + window.scrollY}px`;
+            }
+        }
+    }
+    else if (type === "CHARACTER")
+    {
+        const query = node.textContent;
+        let regEx = new RegExp("^" + query, "i");
+        for (let i in characters)
+        {
+            if (regEx.test(characters[i].name) && inputElement.value != "")
+            {
+                suggestion.style.visibility = "visible";
+                suggestion.innerHTML = characters[i].name;
+
+                suggestion.style.position = 'absolute';
+                suggestion.style.left = `${range.getBoundingClientRect().left + window.scrollX}px`;
+                suggestion.style.top = `${range.getBoundingClientRect().bottom + window.scrollY}px`;
+            }
+        }
+    }
+    else
+    {
+        suggestion.style.visibility = 'hidden';
     }
 });
 
@@ -206,6 +340,9 @@ async function Start()
         inputElement.innerHTML = loadedVersion.htmlSave;
         statusSelect.value = loadedVersion.versionStatus;
 
+        characterTab.innerHTML = loadedVersion.charactersHtml || characterTab.innerHTML;
+        stepTab.innerHTML = loadedVersion.stepHtml || stepTab.innerHTML;
+
         LoadScriptData();
 
         SetVersionsList();
@@ -236,6 +373,9 @@ async function Start()
         htmlOutput.innerHTML = loadedVersion.htmlSave;
         statusSelect.value = loadedVersion.versionStatus;
 
+        characterTab.innerHTML = loadedVersion.charactersHtml || characterTab.innerHTML;
+        stepTab.innerHTML = loadedVersion.stepHtml || stepTab.innerHTML;
+
         LoadScriptData();
 
         SetVersionsList();
@@ -248,6 +388,8 @@ async function Start()
     }
     Observe();
     CountPages();
+
+    UpdateCharacterList();
 }
 
 function CheckNode(n)
@@ -465,4 +607,90 @@ function CleanBlock(node)
         }
     }
     block.normalize();
+}
+
+let scriptTab = document.getElementById("scrollBox");
+let scriptTabBttn = document.getElementById("scriptTabBttn");
+let characterTabBttn = document.getElementById("characterTabBttn");
+let stepTabBttn = document.getElementById("stepTabBttn");
+
+function ToggleScriptTab()
+{
+    toolbarContainer.style.visibility = "visible";
+
+    scriptTab.style.visibility = "visible";
+    characterTab.style.visibility = "hidden";
+    stepTab.style.visibility = "hidden";
+
+    scriptTabBttn.setAttribute("open", "true");
+    characterTabBttn.setAttribute("open", "false");
+    stepTabBttn.setAttribute("open", "false");
+
+    UpdateCharacterList();
+}
+
+function ToggleCharacterTab()
+{
+    toolbarContainer.style.visibility = "hidden";
+
+    scriptTab.style.visibility = "hidden";
+    characterTab.style.visibility = "visible";
+    stepTab.style.visibility = "hidden";
+
+    scriptTabBttn.setAttribute("open", "false");
+    characterTabBttn.setAttribute("open", "true");
+    stepTabBttn.setAttribute("open", "false");
+}
+
+function ToggleStepTab()
+{
+    toolbarContainer.style.visibility = "hidden";
+
+    scriptTab.style.visibility = "hidden";
+    characterTab.style.visibility = "hidden";
+    stepTab.style.visibility = "visible";
+
+    scriptTabBttn.setAttribute("open", "false");
+    characterTabBttn.setAttribute("open", "false");
+    stepTabBttn.setAttribute("open", "true");
+}
+
+let structureContainer;
+
+function ToggleStructure(element)
+{
+    let panel = element.querySelector("#structureContainer");
+    structureContainer = panel;
+    panel.setAttribute("open", panel.getAttribute("open") === "true" ? false : true);
+    ReadStructure();
+    panel.onclick = function (event)
+    {
+        event.stopPropagation();
+    };
+}
+
+function ReadStructure()
+{
+    structureContainer.innerHTML = "";
+    let sectionIndex = -1;
+    for (let block of inputElement.children)
+    {
+        if (block.getAttribute("fntype") === "SECTION 1")
+        {
+            block.setAttribute("sectionIndex", ++sectionIndex);
+            let sectionText = /(?:#\s?)(.+)/.exec(block.textContent)[1];
+            structureContainer.innerHTML += `<a onclick="ScrollTo(${sectionIndex})" href="#"># ${sectionText}</a><br>`;
+        }
+    }
+}
+
+function ScrollTo(index)
+{
+    for (let block of inputElement.children)
+    {
+        if (block.getAttribute("sectionIndex") === `${index}`)
+        {
+            block.scrollIntoView();
+        }
+    }
 }
