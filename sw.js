@@ -1,17 +1,19 @@
 var GHPATH = '/kednoi';
-var VERSION = 'v2.0919a - 02/12/2022';
+var VERSION = 'v2.2a - 14/06/2025';
 var URLS = [
     `${GHPATH}/`,
     //HTMLS
     `${GHPATH}/index.html`,
     `${GHPATH}/pages/editor-SP.html`,
+    `${GHPATH}/pages/editor-CO.html`,
     `${GHPATH}/pages/editor-GD.html`,
     `${GHPATH}/pages/credits.html`,
-    `${GHPATH}/pages/kedOpener.html`,
     //CSS
     `${GHPATH}/css/blocks.css`,
+    `${GHPATH}/css/characterEditor.css`,
     `${GHPATH}/css/dashboard.css`,
     `${GHPATH}/css/editorStyle.css`,
+    `${GHPATH}/css/editorCOStyle.css`,
     `${GHPATH}/css/editorGDStyle.css`,
     `${GHPATH}/css/editorStyleSmall.css`,
     `${GHPATH}/css/editorGDStyleSmall.css`,
@@ -24,11 +26,15 @@ var URLS = [
     `${GHPATH}/css/overlays.css`,
     `${GHPATH}/css/scriptStyle.css`,
     `${GHPATH}/css/scrollBar.css`,
+    `${GHPATH}/css/stepEditor.css`,
     `${GHPATH}/css/creditsStyle.css`,
     `${GHPATH}/css/fonts.css`,
     //JS
+    `${GHPATH}/js/characterEditor.js`,
     `${GHPATH}/js/classes.js`,
+    `${GHPATH}/js/comicBlockSystem.js`,
     `${GHPATH}/js/dashboard.js`,
+    `${GHPATH}/js/DragDropTouch.js`,
     `${GHPATH}/js/editor.js`,
     `${GHPATH}/js/export.js`,
     `${GHPATH}/js/fountainToHtml.js`,
@@ -39,6 +45,7 @@ var URLS = [
     `${GHPATH}/js/pageCounter.js`,
     `${GHPATH}/js/preferences.js`,
     `${GHPATH}/js/save+load.js`,
+    `${GHPATH}/js/stepEditor.js`,
     `${GHPATH}/js/toolbar.js`,
     `${GHPATH}/js/versions.js`,
     //FONTS
@@ -61,6 +68,7 @@ var URLS = [
     `${GHPATH}/src/Decorations/decorColors.svg`,
     `${GHPATH}/src/Decorations/pattern.svg`,
     `${GHPATH}/src/Decorations/spDecorMask.svg`,
+    `${GHPATH}/src/Decorations/coDecorMask.svg`,
     `${GHPATH}/src/Decorations/gdDecorMask.svg`,
     `${GHPATH}/src/MinorIcons/arrow.svg`,
     `${GHPATH}/src/MinorIcons/ArrowDownIcon.svg`,
@@ -75,11 +83,19 @@ var URLS = [
     `${GHPATH}/src/MinorIcons/goToIcon.svg`,
     `${GHPATH}/src/MinorIcons/hand.svg`,
     `${GHPATH}/src/MinorIcons/homeIcon.svg`,
+    `${GHPATH}/src/MinorIcons/negative.svg`,
+    `${GHPATH}/src/MinorIcons/newCO.svg`,
     `${GHPATH}/src/MinorIcons/newGD.svg`,
     `${GHPATH}/src/MinorIcons/newSP.svg`,
+    `${GHPATH}/src/MinorIcons/page.svg`,
+    `${GHPATH}/src/MinorIcons/panel.svg`,
+    `${GHPATH}/src/MinorIcons/positive.svg`,
     `${GHPATH}/src/MinorIcons/question.svg`,
     `${GHPATH}/src/MinorIcons/star.svg`,
     `${GHPATH}/src/MinorIcons/variable.svg`,
+    `${GHPATH}/src/TabIcons/charactersTabIcon.svg`,
+    `${GHPATH}/src/TabIcons/scriptTabIcon.svg`,
+    `${GHPATH}/src/TabIcons/steoTabIcon.svg`,
     `${GHPATH}/src/ToolIcons/act1.svg`,
     `${GHPATH}/src/ToolIcons/act2.svg`,
     `${GHPATH}/src/ToolIcons/act3.svg`,
@@ -107,6 +123,7 @@ var URLS = [
     `${GHPATH}/src/logo.svg`,
     `${GHPATH}/src/paperTex.jpg`,
     `${GHPATH}/src/projectPreviewImg.png`,
+    `${GHPATH}/src/profPhotoPreview.png`,
 ];
 
 self.addEventListener("install", e =>
