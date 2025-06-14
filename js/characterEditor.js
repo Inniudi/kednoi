@@ -5,7 +5,6 @@ let clickedBttn = null;
 const characterCardTemplate = document.getElementById("characterTemplate");
 let suggestion = document.getElementById("suggestion");
 
-
 function CalcDialogPercent(name)
 {
     let totalDialog = 0;
@@ -16,7 +15,7 @@ function CalcDialogPercent(name)
         if (block.getAttribute("fntype") === "CHARACTER")
         {
             totalDialog++;
-            if (/([A-ZÀ-Ö]+)(?:\s?\(.+)?/gm.exec(block.textContent.trim())[1] === name) thisCharacterDialog++;
+            if (/([A-ZÀ-Ö]+)(?:\s?\(.+)?/gm.exec(block.textContent.trim())[1] === name.toUpperCase()) thisCharacterDialog++;
         }
     }
 
@@ -32,6 +31,7 @@ function UpdateCharacterList()
     {
         let mainInfo = cards[i].getElementsByClassName("charMainInfo")[0];
         characters.push(new Character(mainInfo.getElementsByClassName("charName")[0].textContent, mainInfo.getElementsByClassName("charAge")[0].textContent));
+        mainInfo.getElementsByClassName("charDialogPercent")[0].textContent = CalcDialogPercent(mainInfo.getElementsByClassName("charName")[0].textContent) + "% del diálogo";
     }
 }
 

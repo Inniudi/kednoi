@@ -640,6 +640,8 @@ function ToggleCharacterTab()
     scriptTabBttn.setAttribute("open", "false");
     characterTabBttn.setAttribute("open", "true");
     stepTabBttn.setAttribute("open", "false");
+
+    UpdateCharacterList();
 }
 
 function ToggleStepTab()
