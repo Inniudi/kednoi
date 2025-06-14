@@ -154,7 +154,7 @@ for (let element of tools)
 function PositionToolbar()
 {
     let newRight = window.innerWidth - inputContainer.offsetLeft;
-    toolbarContainer.style.setProperty("--toolbar-right", newRight);
+    toolbarContainer.parentElement.style.setProperty("--toolbar-right", newRight);
 }
 
 function ToolbarIsOpen(tb)
