@@ -7,6 +7,17 @@
 
     --toolBaseWidth: 60px;
     --leftSpace: 36%;
+
+    --toolbar-right: 0px;
+
+    --grey: #59656f;
+    --red: #f06262;
+    --orange: #f88a68;
+    --yellow: #f0ca62;
+    --green: #75c590;
+    --blue: #548ed0;
+    --violet: #cb85d1;
+    --standard-color: #edc689;
 }
 
 body {
@@ -36,6 +47,7 @@ body {
     width: calc(var(--paperWidth) + 14px) !important;
     overflow-y: scroll;
     scrollbar-gutter: stable;
+    scroll-behavior: smooth;
 }
 
 .editorContainer {
@@ -173,10 +185,9 @@ body {
 }
 
 #toolbarContainer {
-    --toolbar-right: 0px;
     right: calc(var(--toolbar-right) * 1px + 10px);
     position: fixed;
-    top: 40%;
+    top: 50%;
     pointer-events: all;
 }
 
@@ -201,6 +212,43 @@ body {
 
 #nonPrintable-toolbar {
     top: 140px;
+}
+
+#structure-toolbar {
+    background-color: var(--primary);
+    top: -18vw;
+    overflow: visible;
+}
+
+#structureIcon {
+    background: url("../src/ToolIcons/act1.svg");
+    z-index: 2;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    margin: 15px;
+    right: 0;
+
+    transition: 0.2s, transform 0.1s;
+}
+
+#structureContainer {
+    position: absolute;
+    z-index: -1;
+    transition: 0.2s;
+    width: 0px;
+    height: 0px;
+    right: 0px;
+    top: 0px;
+    border-radius: 20px;
+}
+
+#structureContainer[open="true"] {
+    background-color: var(--toolbar-bg);
+    width: 28vw;
+    height: 16vw;
+    right: 70px;
 }
 
 #fntypes-toolbar:hover {
@@ -603,4 +651,66 @@ body {
 option {
     color: var(--light) !important;
     background-color: var(--dark) !important;
+}
+
+#tabsContainer {
+    right: calc(var(--toolbar-right) * 1px);
+    position: fixed;
+    top: 10%;
+    pointer-events: all;
+}
+
+#characterTabBttn,
+#scriptTabBttn,
+#stepTabBttn {
+    position: absolute;
+    background-color: var(--standard-color);
+    width: 46px;
+    height: 60px;
+    right: 0;
+    transition: 0.2s;
+    padding: 10px;
+    padding-left: 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+#characterTabBttn {
+    top: 61px;
+}
+
+#stepTabBttn {
+    top: 122px;
+}
+
+#scriptTabBttn[open="true"],
+#characterTabBttn[open="true"],
+#stepTabBttn[open="true"] {
+    width: 60px;
+    background-color: var(--paperColor);
+}
+
+#characterTabBttnIcon,
+#scriptTabBttnIcon,
+#stepTabBttnIcon {
+    margin-top: 5px;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    right: 0;
+    fill: currentColor;
+    color: var(--blue);
+}
+
+#characterTabBttnIcon {
+    background-image: url("../src/TabIcons/charactersTabIcon.svg");
+}
+
+#scriptTabBttnIcon {
+    background-image: url("../src/TabIcons/scriptTabIcon.svg");
+}
+
+#stepTabBttnIcon {
+    background-image: url("../src/TabIcons/stepTabIcon.svg");
 }

@@ -37,6 +37,7 @@
 
 #newSPProjectBttn,
 #newGDProjectBttn,
+#newCOProjectBttn,
 #openProjectBttn {
     display: inline-block;
     width: calc(var(--x) * 1.6);
@@ -58,12 +59,18 @@
     transition: 0.2s;
 }
 
+#newGDProjectBttn {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 #openProjectBttn {
     padding: 1vh;
 }
 
 #newSPProjectBttn:hover,
 #newGDProjectBttn:hover,
+#newCOProjectBttn:hover,
 #openProjectBttn:hover {
     transform: translateY(-6px);
 }
@@ -81,6 +88,15 @@
     width: 5vh;
     height: 5vh;
     background-image: url("../src/MinorIcons/newGD.svg");
+    background-size: contain;
+    margin-left: 10%;
+    margin-right: auto;
+}
+
+#newCOicon {
+    width: 5vh;
+    height: 5vh;
+    background-image: url("../src/MinorIcons/newCO.svg");
     background-size: contain;
     margin-left: 10%;
     margin-right: auto;
@@ -194,6 +210,11 @@
 [filetype="GD"]>.cardDecor {
     mask-image: url("../src/Decorations/gdDecorMask.svg");
     -webkit-mask-image: url("../src/Decorations/gdDecorMask.svg");
+}
+
+[filetype="CO"]>.cardDecor {
+    mask-image: url("../src/Decorations/coDecorMask.svg");
+    -webkit-mask-image: url("../src/Decorations/coDecorMask.svg");
 }
 
 .cardImage {
