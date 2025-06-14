@@ -1,9 +1,17 @@
 ![KEDNOI](src/logo.svg)
-<br>Version 2.09alpha
+<br>Version 2.15alpha
 
 **A scriptwriting app for the web made in HTML, CSS and JS**
 
 ## Changelog
+
+### v2.15a (JUN 14 2025) - Changes since v2.09a
+- (+) NEW: Comic script editor!
+- (+) Added: Character editor.
+- (+) Added: Beat editor.
+- (+) Added: Character names can be autocompleted by pressing Tab when entering a dialog.
+- (+) Added: Character names can be autocompleted by inserting "@".
+- (>) Change: Game design script editor is under concstruction, so it's closed for now...
 
 ### v2.09a (DEC 02 2022) - Changes since v2.085a
 - (+) Added: PDF export now supports A4 files.
