@@ -31,7 +31,7 @@ function UpdateCharacterList()
     {
         let mainInfo = cards[i].getElementsByClassName("charMainInfo")[0];
         characters.push(new Character(mainInfo.getElementsByClassName("charName")[0].textContent, mainInfo.getElementsByClassName("charAge")[0].textContent));
-        mainInfo.getElementsByClassName("charDialogPercent")[0].textContent = CalcDialogPercent(mainInfo.getElementsByClassName("charName")[0].textContent) + "% del diálogo";
+        if(editorType === "SP") mainInfo.getElementsByClassName("charDialogPercent")[0].textContent = CalcDialogPercent(mainInfo.getElementsByClassName("charName")[0].textContent) + "% del diálogo";
     }
 }
 
