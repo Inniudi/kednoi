@@ -1,26 +1,32 @@
+let editorType;
+
 function GoToFileEditor(project, version, type, scope)
 {
     sessionStorage.setItem("currentSelectedFile", project);
     sessionStorage.setItem("currentSelectedVersion", version);
     window.location.href = `${scope}pages/editor-${type}.html`;
+    editorType = type;
 }
 
 function GoToNewSPEditor()
 {
     sessionStorage.removeItem("currentSelectedFile");
     window.location.href = "pages/editor-SP.html";
+    editorType = "SP";
 }
 
 function GoToNewCOEditor()
 {
     sessionStorage.removeItem("currentSelectedFile");
     window.location.href = "pages/editor-CO.html";
+    editorType = "CO";
 }
 
 function GoToNewGDEditor()
 {
     sessionStorage.removeItem("currentSelectedFile");
     window.location.href = "pages/editor-GD.html";
+    editorType = "GD";
 }
 
 function GoToDashboard()
